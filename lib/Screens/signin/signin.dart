@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:payments/Screens/loading/LoadingScreen.dart';
+import 'package:payments/actions/Checker.dart';
 import 'package:payments/services/authenticate/auth.dart';
 import 'package:payments/utils/Utils.dart';
 
@@ -61,9 +62,12 @@ class _SignInState extends State<SignIn> {
                     ),
                     Text("password"),
                     TextFormField(
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Password can\'t be empty';
+                      validator: (String? value) {
+                        if (!checkPassword(value!)) {
+                          passValid = false;
+                          return 'Password not valid (6 characters required)';
+                        } else {
+                          passValid = true;
                         }
                         return null;
                       },
@@ -84,12 +88,16 @@ class _SignInState extends State<SignIn> {
                     ),
                     Text("password confirmation"),
                     TextFormField(
-                      validator: (value) {
+                      validator: (String? value) {
                         if (password != password2) {
                           passValid = false;
                           return 'Passwords don\'t match';
-                        } else if (value!.isNotEmpty) {
+                        }
+                        if (value!.isNotEmpty) {
                           passValid = true;
+                        }
+                        if (!checkPassword(value)) {
+                          passValid = false;
                         }
                         return null;
                       },
@@ -108,8 +116,7 @@ class _SignInState extends State<SignIn> {
                         ),
                       ),
                     ),
-                    RaisedButton(
-                      color: Colors.pink,
+                    ElevatedButton(
                       child: Text("Sign In Email"),
                       onPressed: () async {
                         setState(() => loading = true);
@@ -120,7 +127,9 @@ class _SignInState extends State<SignIn> {
                               .whenComplete(
                                   () => setState(() => loading = false));
                         } else {
-                          AuthService().showErrorMessage(callback, context);
+                          setState(() => loading = false);
+                          AuthService().showErrorMessage(
+                              "Error, compruebe los datos", context);
                           print("Errors");
                         }
                       },

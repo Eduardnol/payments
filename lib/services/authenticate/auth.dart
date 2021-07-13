@@ -80,8 +80,11 @@ class AuthService {
 
 //Error show
 
-  void showErrorMessage(var message, var context) {
-    final snackBar = SnackBar(content: Text(message));
-    Scaffold.of(context).showSnackBar(snackBar);
+  void showErrorMessage(String message, BuildContext context) {
+    final snackBar = SnackBar(
+      content: Text(message),
+      duration: const Duration(seconds: 2),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

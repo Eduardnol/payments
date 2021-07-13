@@ -66,7 +66,7 @@ class _LogInState extends State<LogIn> {
                         ),
                       ),
                     ),
-                    RaisedButton(
+                    TextButton(
                       child: Text("Sign In Anon"),
                       onPressed: () async {
                         setState(() => loading = true);
@@ -82,8 +82,7 @@ class _LogInState extends State<LogIn> {
                         }
                       },
                     ),
-                    RaisedButton(
-                      color: Colors.pink,
+                    TextButton(
                       child: Text("Log In Email"),
                       onPressed: () async {
                         setState(() => loading = true);
@@ -94,8 +93,7 @@ class _LogInState extends State<LogIn> {
                         print(result.uid);
                       },
                     ),
-                    RaisedButton(
-                      color: Colors.pink,
+                    TextButton(
                       child: Text("No account? --> Sign Up Email"),
                       onPressed: () async {
                         Navigator.push(context,
