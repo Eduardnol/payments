@@ -29,7 +29,7 @@ class _GridViewSuscriptionState extends State<GridViewSuscription> {
   List<SuscriptionCards> insertInformation(var cart) {
     List<SuscriptionCards> _suscriptionList = [];
     for (int i = 0; i < cart.length; i++) {
-      _suscriptionList.add(SuscriptionCards(cart.elementAt(i)));
+      _suscriptionList.add(SuscriptionCards(cart.elementAt(i), i));
     }
     return _suscriptionList;
   }

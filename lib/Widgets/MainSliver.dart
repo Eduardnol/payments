@@ -6,8 +6,9 @@ class MainSliver extends StatelessWidget {
 
   SliverAppBar appBar() {
     return SliverAppBar(
+      backgroundColor: Colors.transparent,
       expandedHeight: 200.0,
-      floating: false,
+      floating: true,
       pinned: true,
       stretch: true,
       actions: <Widget>[
@@ -24,21 +25,19 @@ class MainSliver extends StatelessWidget {
       ],
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,
-        stretchModes: [
+        stretchModes: <StretchMode>[
           StretchMode.zoomBackground,
           StretchMode.blurBackground,
           StretchMode.fadeTitle
         ],
-        title: Text("Collapsing Toolbar",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 15.0,
-              fontWeight: FontWeight.bold,
-            )),
-        background: Image.network(
-          //"https://images.pexels.com/photos/396547/pexels-photo-396547.jpeg?auto=compress&cs=tinysrgb&h=350",
-          "https://images.unsplash.com/photo-1597319807488-0e901f36e2d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1547&q=80",
-          fit: BoxFit.cover,
+        background: Container(
+          alignment: AlignmentDirectional.center,
+          child: Text("Your Balance Is",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 15.0,
+                fontWeight: FontWeight.bold,
+              )),
         ),
         collapseMode: CollapseMode.parallax,
       ),

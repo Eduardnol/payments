@@ -57,6 +57,8 @@ dependencies:
 
   json_annotation: ^4.0.1
 
+  flutter_colorpicker: ^0.4.0
+
 
 
   dwds: ^11.1.1

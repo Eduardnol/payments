@@ -26,7 +26,8 @@ class _SuscriptionInfoState extends State<SuscriptionInfo> {
                     isDestructiveAction: true,
                     child: Text("Aceptar"),
                     onPressed: () {
-//TODO Editar los cambios en la lista
+                      Provider.of<Session>(context, listen: false)
+                          .delete(widget.index);
                       Navigator.pop(context);
                       Navigator.pop(context);
                     }),
@@ -100,6 +101,15 @@ class _SuscriptionInfoState extends State<SuscriptionInfo> {
         return NamePicker(
           index: widget.index,
         );
+      },
+    );
+  }
+
+  void _showCupertinoColorPicker(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return ColourPicker.colorPicker(Colors.red, widget.index, context);
       },
     );
   }
@@ -241,6 +251,9 @@ class _SuscriptionInfoState extends State<SuscriptionInfo> {
                     ),
                   ],
                 ), //Price
+                ElevatedButton(
+                    onPressed: () => _showCupertinoColorPicker(context),
+                    child: Text("Change Color")),
                 Text("Description:",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:payments/Screens/login/loginScreen.dart';
 import 'package:payments/Screens/principal/Principal.dart';
 import 'package:payments/models/UserLocal.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +9,7 @@ class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserLocal?>(context);
-    return (user == null) ? LogIn() : MyHomePage();
+    //return (user == null) ? LogIn() : MyHomePage();
+    return MyHomePage();
   }
 }

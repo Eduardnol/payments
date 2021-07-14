@@ -48,8 +48,8 @@ class Session extends ChangeNotifier {
     notifyListeners();
   }
 
-  void delete(Suscription suscription) {
-    suscriptionList!.remove(suscription);
+  void delete(int index) {
+    suscriptionList!.removeAt(index);
     notifyListeners();
   }
 
@@ -71,8 +71,8 @@ class Session extends ChangeNotifier {
     notifyListeners();
   }
 
-  void editColor(int index, int color) {
-    suscriptionList!.elementAt(index).color = color;
+  void editColor(int index, Color color) {
+    suscriptionList!.elementAt(index).color = color.value;
     SaveInformation.setInfoFromSharedPref(SaveFile.encodeJson(this));
     notifyListeners();
   }

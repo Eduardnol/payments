@@ -13,6 +13,7 @@ class BottomAppBarInfo extends StatelessWidget {
       color: ColorsApp.primary,
       child: Container(
         height: 55,
+        color: Colors.blue.withOpacity(0.1),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,

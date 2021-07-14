@@ -21,7 +21,6 @@ class _LogInState extends State<LogIn> {
     return loading
         ? LoadingScreen()
         : Scaffold(
-            appBar: AppBar(),
             body: Form(
               child: Padding(
                 padding: const EdgeInsets.all(Borders.space),

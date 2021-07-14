@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:payments/Widgets/BottomAppBarInfo.dart';
 import 'package:payments/Widgets/GridViewSuscription.dart';
 import 'package:payments/Widgets/MainSliver.dart';
@@ -19,20 +20,37 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      extendBody: true,
       backgroundColor: Colors.white70,
-      body: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
-          slivers: <Widget>[
-            MainSliver(),
-            SliverPadding(
-                padding: EdgeInsets.only(top: Borders.borderCard),
-                sliver: Consumer<Session>(
-                  builder: (context, session, child) => GridViewSuscription(
-                      suscriptionList: session.suscriptionList),
-                )),
-            //content()),
-          ]),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.blueGrey.shade400,
+              Colors.blueGrey.shade900,
+            ],
+          ),
+        ),
+        child: CustomScrollView(
+            physics: const BouncingScrollPhysics(),
+            slivers: <Widget>[
+              MainSliver(),
+              SliverPadding(
+                  padding: EdgeInsets.only(
+                      top: Borders.borderCard, bottom: Borders.inferiorMargin),
+                  sliver: Consumer<Session>(
+                    builder: (context, session, child) => GridViewSuscription(
+                        suscriptionList: session.suscriptionList),
+                  )),
+              //content()),
+            ]),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: () => addNew(context),

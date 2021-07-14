@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:payments/actions/Checker.dart';
 import 'package:payments/models/Session.dart';
 import 'package:payments/utils/Utils.dart';
@@ -286,6 +287,28 @@ class _NamePickerState extends State<NamePicker> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class ColourPicker {
+  static Widget colorPicker(var currentColor, int index, BuildContext context) {
+    Color currentColorChanged;
+    void changeColor(Color color) {
+      currentColorChanged = color;
+      Provider.of<Session>(context, listen: false)
+          .editColor(index, currentColorChanged);
+    }
+
+    return AlertDialog(
+      titlePadding: const EdgeInsets.all(0.0),
+      contentPadding: const EdgeInsets.all(0.0),
+      content: SingleChildScrollView(
+        child: BlockPicker(
+          pickerColor: currentColor,
+          onColorChanged: changeColor,
         ),
       ),
     );

@@ -8,8 +8,9 @@ import 'package:payments/utils/Utils.dart';
 ///Creates all the cards containing the suscriptions
 class SuscriptionCards extends StatefulWidget {
   final Suscription? suscriptions;
+  final int index;
 
-  SuscriptionCards(this.suscriptions);
+  SuscriptionCards(this.suscriptions, this.index);
 
   @override
   _SuscriptionCardsState createState() => _SuscriptionCardsState();
@@ -112,7 +113,7 @@ class _SuscriptionCardsState extends State<SuscriptionCards> {
         enableDrag: true,
         context: context,
         builder: (pepe) {
-          return SuscriptionInfo(widget.suscriptions!.id);
+          return SuscriptionInfo(widget.index);
         });
   }
 

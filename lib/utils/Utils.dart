@@ -13,6 +13,7 @@ class Borders {
   static const gridAaxis = 280.0;
   static const borderDialog = 46.0;
   static const thickness = 1.0;
+  static const inferiorMargin = 60.0;
 }
 
 class BoxSize {
@@ -40,4 +41,5 @@ class ColorsApp {
   static const secondaryDark = Color.fromRGBO(0, 105, 120, 1);
 
   static const background = Color.fromRGBO(245, 245, 245, 1);
+  static const next = Color(0x0e2f44);
 }
