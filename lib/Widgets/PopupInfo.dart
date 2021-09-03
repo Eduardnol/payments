@@ -23,7 +23,7 @@ class _SuscriptionInfoState extends State<SuscriptionInfo> {
     IconData? icon = await FlutterIconPicker.showIconPicker(context,
         iconPackMode: IconPack.material);
     if (icon != null) {
-      suscription.editLogo(widget.index, Icon(icon));
+      suscription.editLogo(widget.index, icon);
     }
   }
 
@@ -137,7 +137,7 @@ class _SuscriptionInfoState extends State<SuscriptionInfo> {
         child: Container(
           decoration: BoxDecoration(
             color:
-            Color(session.suscriptionList!.elementAt(widget.index).color),
+                Color(session.suscriptionList!.elementAt(widget.index).color),
           ),
           height: 510,
           child: Padding(
@@ -150,8 +150,7 @@ class _SuscriptionInfoState extends State<SuscriptionInfo> {
                       onTap: () => _iconPicker(context),
                       child: Icon(session.suscriptionList!
                           .elementAt(widget.index)
-                          .logo
-                          .icon)),
+                          .logo)),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(Borders.interiorPadding),

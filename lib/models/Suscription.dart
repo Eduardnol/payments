@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'Suscription.g.dart';
@@ -11,7 +12,7 @@ class Suscription {
   DateTime? date;
   double price;
   int color;
-  var logo;
+  IconData logo;
 
   Suscription(
       {required this.id,

@@ -89,7 +89,7 @@ class Session extends ChangeNotifier {
     notifyListeners();
   }
 
-  void editLogo(int index, Icon logo) {
+  void editLogo(int index, IconData logo) {
     suscriptionList!.elementAt(index).logo = logo;
     SaveInformation.setInfoFromSharedPref(SaveFile.encodeJson(this));
     notifyListeners();
