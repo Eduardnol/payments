@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:payments/Widgets/Pickers.dart';
+import 'package:payments/actions/Checker.dart';
 import 'package:payments/models/Session.dart';
 import 'package:payments/utils/Utils.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +18,16 @@ class SuscriptionInfo extends StatefulWidget {
 }
 
 class _SuscriptionInfoState extends State<SuscriptionInfo> {
+  void _iconPicker(BuildContext context) async {
+    Session suscription = Provider.of<Session>(context, listen: false);
+    IconData? icon = await FlutterIconPicker.showIconPicker(context,
+        iconPackMode: IconPack.material);
+    if (icon != null) {
+      suscription.editLogo(widget.index, Icon(icon));
+    }
+  }
+
+  ///Confirmation for the delete of one Suscription
   void _confirmation(BuildContext context) {
     showDialog(
         context: context,
@@ -39,6 +51,7 @@ class _SuscriptionInfoState extends State<SuscriptionInfo> {
             ));
   }
 
+  ///Date Picker for Cupertino
   void _showCupertinoDatePicker(BuildContext context) {
     var platform = Theme.of(context).platform;
 
@@ -64,6 +77,7 @@ class _SuscriptionInfoState extends State<SuscriptionInfo> {
           });
   }
 
+  ///Number picker for Cupertino
   void _showCupertinoNumberPicker(BuildContext context) {
     var platform = Theme.of(context).platform;
     print("Changing Price");
@@ -90,6 +104,7 @@ class _SuscriptionInfoState extends State<SuscriptionInfo> {
       );
   }
 
+  ///Name picker for Cupertino
   void _showCupertinoNamePicker(BuildContext context) {
     showCupertinoModalBottomSheet(
       expand: true,
@@ -105,6 +120,7 @@ class _SuscriptionInfoState extends State<SuscriptionInfo> {
     );
   }
 
+  ///Color picker for Cupertino
   void _showCupertinoColorPicker(BuildContext context) {
     showDialog(
       context: context,
@@ -121,41 +137,65 @@ class _SuscriptionInfoState extends State<SuscriptionInfo> {
         child: Container(
           decoration: BoxDecoration(
             color:
-                Color(session.suscriptionList!.elementAt(widget.index).color),
+            Color(session.suscriptionList!.elementAt(widget.index).color),
           ),
           height: 510,
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(Borders.textOptions),
             child: Column(
               children: [
-                Image.asset(
-                  "assets/images/logo_flutter_1080px_clr.png",
-                  scale: 10.23,
-                  fit: BoxFit.cover,
+                Padding(
+                  padding: const EdgeInsets.all(Borders.interiorPadding),
+                  child: GestureDetector(
+                      onTap: () => _iconPicker(context),
+                      child: Icon(session.suscriptionList!
+                          .elementAt(widget.index)
+                          .logo
+                          .icon)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(Borders.interiorPadding),
+                  child: TextField(
+                    textAlign: TextAlign.center,
+                    maxLines: 1,
+                    keyboardType: TextInputType.number,
+                    onSubmitted: (String name) {
+                      double value = transformValue(name);
+                      return session.editPrice(widget.index, value);
+                    },
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: session.suscriptionList!
+                              .elementAt(widget.index)
+                              .price
+                              .toStringAsFixed(2) +
+                          " €",
+                      hintStyle: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color(session.suscriptionList!
+                                          .elementAt(widget.index)
+                                          .color)
+                                      .computeLuminance() >
+                                  0.5
+                              ? Colors.black
+                              : Colors.white,
+                          fontSize: TextSize.textPrice),
+                      floatingLabelBehavior: FloatingLabelBehavior.auto,
+                    ),
+                  ),
                 ),
                 Divider(
                   height: Borders.space * 2,
                   thickness: Borders.thickness * 4,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Name:",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color(session.suscriptionList!
-                                            .elementAt(widget.index)
-                                            .color)
-                                        .computeLuminance() >
-                                    0.5
-                                ? Colors.black
-                                : Colors.white,
-                            fontSize: TextSize.textSubtitle)),
-                    GestureDetector(
-                      onTap: () => _showCupertinoNamePicker(context),
-                      child: Text(
-                          session.suscriptionList!.elementAt(widget.index).name,
+                Padding(
+                  padding: const EdgeInsets.all(Borders.textOptions),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Name:",
                           style: TextStyle(
+                              fontWeight: FontWeight.bold,
                               color: Color(session.suscriptionList!
                                               .elementAt(widget.index)
                                               .color)
@@ -164,29 +204,58 @@ class _SuscriptionInfoState extends State<SuscriptionInfo> {
                                   ? Colors.black
                                   : Colors.white,
                               fontSize: TextSize.textSubtitle)),
-                    ),
-                  ],
+                      Container(
+                        constraints: BoxConstraints.tightForFinite(width: 200),
+                        child: TextField(
+                          textAlign: TextAlign.end,
+                          maxLines: 1,
+                          onSubmitted: (String name) {
+                            return session.editName(widget.index, name);
+                          },
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: session.suscriptionList!
+                                .elementAt(widget.index)
+                                .name
+                                .toString(),
+                            hintStyle: TextStyle(
+                                color: Color(session.suscriptionList!
+                                                .elementAt(widget.index)
+                                                .color)
+                                            .computeLuminance() >
+                                        0.5
+                                    ? Colors.black
+                                    : Colors.white,
+                                fontSize: TextSize.textNormal),
+                            floatingLabelBehavior: FloatingLabelBehavior.auto,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ), //Name
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Payment Date:",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color(session.suscriptionList!
-                                            .elementAt(widget.index)
-                                            .color)
-                                        .computeLuminance() >
-                                    0.5
-                                ? Colors.black
-                                : Colors.white,
-                            fontSize: TextSize.textSubtitle)),
-                    GestureDetector(
-                      onTap: () {
-                        _showCupertinoDatePicker(context);
-                        //TODO cambiar el set state por el watcher que hemos aprendido
-                      },
-                      child: Text(
+                Padding(
+                  padding: const EdgeInsets.all(Borders.textOptions),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Payment Date:",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Color(session.suscriptionList!
+                                              .elementAt(widget.index)
+                                              .color)
+                                          .computeLuminance() >
+                                      0.5
+                                  ? Colors.black
+                                  : Colors.white,
+                              fontSize: TextSize.textSubtitle)),
+                      GestureDetector(
+                        onTap: () {
+                          _showCupertinoDatePicker(context);
+                          //TODO cambiar el set state por el watcher que hemos aprendido
+                        },
+                        child: Text(
                           session.suscriptionList!
                                   .elementAt(widget.index)
                                   .date!
@@ -212,33 +281,34 @@ class _SuscriptionInfoState extends State<SuscriptionInfo> {
                                       0.5
                                   ? Colors.black
                                   : Colors.white,
-                              fontSize: TextSize.textNormal)),
-                    ),
-                  ],
-                ), //Payment Date
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Price:",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color(session.suscriptionList!
-                                            .elementAt(widget.index)
-                                            .color)
-                                        .computeLuminance() >
-                                    0.5
-                                ? Colors.black
-                                : Colors.white,
-                            fontSize: TextSize.textSubtitle)),
-                    GestureDetector(
-                      onTap: () {
-                        _showCupertinoNumberPicker(context);
-                      },
-                      child: Text(
-                          session.suscriptionList!
-                              .elementAt(widget.index)
-                              .price
-                              .toString(),
+                              fontSize: TextSize.textNormal),
+                        ),
+                      ),
+                    ],
+                  ),
+                ), //Payment Date//Price
+                Padding(
+                  padding: const EdgeInsets.all(Borders.textOptions),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Color:",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Color(session.suscriptionList!
+                                              .elementAt(widget.index)
+                                              .color)
+                                          .computeLuminance() >
+                                      0.5
+                                  ? Colors.black
+                                  : Colors.white,
+                              fontSize: TextSize.textSubtitle)),
+                      GestureDetector(
+                        onTap: () {
+                          _showCupertinoColorPicker(context);
+                        },
+                        child: Text(
+                          "Change Color",
                           style: TextStyle(
                               color: Color(session.suscriptionList!
                                               .elementAt(widget.index)
@@ -247,13 +317,12 @@ class _SuscriptionInfoState extends State<SuscriptionInfo> {
                                       0.5
                                   ? Colors.black
                                   : Colors.white,
-                              fontSize: TextSize.textNormal)),
-                    ),
-                  ],
-                ), //Price
-                ElevatedButton(
-                    onPressed: () => _showCupertinoColorPicker(context),
-                    child: Text("Change Color")),
+                              fontSize: TextSize.textNormal),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 Text("Description:",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -272,11 +341,22 @@ class _SuscriptionInfoState extends State<SuscriptionInfo> {
                   flex: 1,
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
-                    child: Text(
-                        session.suscriptionList!
+                    child: TextField(
+                      textInputAction: TextInputAction.done,
+                      keyboardType: TextInputType.multiline,
+                      maxLines: null,
+                      textAlign: TextAlign.center,
+                      onSubmitted: (String description) {
+                        return session.editDescripion(
+                            widget.index, description);
+                      },
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: session.suscriptionList!
                             .elementAt(widget.index)
-                            .description,
-                        style: TextStyle(
+                            .description
+                            .toString(),
+                        hintStyle: TextStyle(
                             color: Color(session.suscriptionList!
                                             .elementAt(widget.index)
                                             .color)
@@ -284,7 +364,10 @@ class _SuscriptionInfoState extends State<SuscriptionInfo> {
                                     0.5
                                 ? Colors.black
                                 : Colors.white,
-                            fontSize: TextSize.textButton)),
+                            fontSize: TextSize.textNormal),
+                        floatingLabelBehavior: FloatingLabelBehavior.auto,
+                      ),
+                    ),
                   ),
                 ),
                 TextButton(

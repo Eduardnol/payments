@@ -14,6 +14,8 @@ class Borders {
   static const borderDialog = 46.0;
   static const thickness = 1.0;
   static const inferiorMargin = 60.0;
+  static const interiorPadding = 18.0;
+  static const textOptions = 12.0;
 }
 
 class BoxSize {
@@ -27,6 +29,7 @@ class TextSize {
   static const textButton = 15.0;
   static const textSubtitle = 20.0;
   static const textNormal = 18.0;
+  static const textPrice = 20.0;
 }
 
 class ColorsApp {

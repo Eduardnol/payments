@@ -9,18 +9,18 @@ class Suscription {
   var name;
   var description;
   DateTime? date;
-  var price;
+  double price;
   int color;
   var logo;
 
   Suscription(
       {required this.id,
-      this.name,
+      required this.name,
       this.description,
       this.date,
-      this.price,
+      required this.price,
       required this.color,
-      this.logo});
+      required this.logo});
 
   factory Suscription.fromJson(Map<String, dynamic> data) =>
       _$SuscriptionFromJson(data);

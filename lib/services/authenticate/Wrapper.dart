@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:payments/Screens/principal/Principal.dart';
+import 'package:payments/Screens/principal/GroupDetail.dart';
 import 'package:payments/models/UserLocal.dart';
 import 'package:provider/provider.dart';
 

@@ -35,6 +35,8 @@ dependencies:
 
   firebase_messaging_platform_interface: ^3.0.2
 
+  flutter_iconpicker: ^3.0.4
+
   firebase_performance: ^0.7.0+6
 
   firebase_auth: ^2.0.0

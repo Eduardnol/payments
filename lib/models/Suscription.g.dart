@@ -26,5 +26,5 @@ Map<String, dynamic> _$SuscriptionToJson(Suscription instance) =>
       'date': instance.date?.toIso8601String(),
       'price': instance.price,
       'color': instance.color,
-      'logo': instance.logo.toString(),
+      'logo': instance.logo,
     };

@@ -82,7 +82,7 @@ class _SuscriptionCardsState extends State<SuscriptionCards> {
 
                       ///Price
                       Text(
-                        widget.suscriptions!.price.toString() + " €",
+                        widget.suscriptions!.price.toStringAsFixed(2) + " €",
                         style: TextStyle(
                           color: Color(widget.suscriptions!.color)
                                       .computeLuminance() >

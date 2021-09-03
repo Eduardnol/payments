@@ -20,7 +20,7 @@ class BottomAppBarInfo extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              "Total este mes: $total",
+              "",
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,

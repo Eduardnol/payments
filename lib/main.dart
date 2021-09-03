@@ -54,11 +54,11 @@ class MyApp extends StatelessWidget {
           const Locale('es'), // Español
         ],
 
-        title: 'Flutter App',
+        title: 'Payments',
         darkTheme: ThemeData.dark(),
         theme: ThemeData(
 //        cupertinoOverrideTheme: CupertinoThemeData(textTheme: GoogleFonts.indieFlowerTextTheme()),
-          textTheme: GoogleFonts.robotoTextTheme(),
+          textTheme: GoogleFonts.montserratTextTheme(),
           dividerTheme: DividerThemeData(
             thickness: Borders.thickness,
             space: Borders.space,

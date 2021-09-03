@@ -23,7 +23,7 @@ class SaveFile {
         date: DateTime.now(),
         description: "None",
         price: 9,
-        logo: none,
+        logo: Icon(Icons.queue),
       ));
       return none;
     }

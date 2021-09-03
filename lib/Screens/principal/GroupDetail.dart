@@ -69,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
       date: DateTime.now(),
       price: 0.00,
       color: Colors.grey.value,
-      logo: null,
+      logo: Icon(Icons.queue),
     );
 
     var listaSus = context.read<Session>();
