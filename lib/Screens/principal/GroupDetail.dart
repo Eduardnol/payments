@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void addNew(BuildContext context) {
-    var sus = Suscription(
+    Suscription sus = Suscription(
       id: context.read<Session>().suscriptionList!.length,
       name: "name",
       description: "description",

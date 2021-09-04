@@ -32,6 +32,11 @@ class TextSize {
   static const textPrice = 20.0;
 }
 
+class ContainerSize {
+  static const smallCard = 32.0;
+  static const bigCard = 82.0;
+}
+
 class ColorsApp {
   //https://material.io/resources/color/#!/?view.left=1&view.right=0&primary.color=455A64&secondary.color=0097A7&primary.text.color=ffffff
 

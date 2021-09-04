@@ -148,9 +148,15 @@ class _SuscriptionInfoState extends State<SuscriptionInfo> {
                   padding: const EdgeInsets.all(Borders.interiorPadding),
                   child: GestureDetector(
                       onTap: () => _iconPicker(context),
-                      child: Icon(session.suscriptionList!
-                          .elementAt(widget.index)
-                          .logo)),
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: ContainerSize.bigCard,
+                        width: ContainerSize.bigCard,
+                        child: Icon(
+                          session.suscriptionList!.elementAt(widget.index).logo,
+                          size: ContainerSize.bigCard,
+                        ),
+                      )),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(Borders.interiorPadding),

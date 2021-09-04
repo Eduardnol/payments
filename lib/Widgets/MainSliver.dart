@@ -32,7 +32,7 @@ class MainSliver extends StatelessWidget {
         ],
         background: Container(
           alignment: AlignmentDirectional.center,
-          child: Text("Your Balance Is",
+          child: Text("Hello There!",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 15.0,

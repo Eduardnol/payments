@@ -12,7 +12,7 @@ class Suscription {
   DateTime? date;
   double price;
   int color;
-  IconData logo;
+  IconData? logo;
 
   Suscription(
       {required this.id,

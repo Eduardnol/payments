@@ -34,17 +34,15 @@ class _SuscriptionCardsState extends State<SuscriptionCards> {
             child: FittedBox(
               fit: BoxFit.contain,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Hero(
                     tag: 'icon',
-                    child: Image.asset(
-                      "assets/images/logo_flutter_1080px_clr.png",
-                      scale: 10.23,
-                      fit: BoxFit.cover,
-                    ),
+                    child: Container(
+                        height: ContainerSize.smallCard,
+                        width: ContainerSize.smallCard,
+                        child: Icon(widget.suscriptions!.logo)),
                   ),
-                  SizedBox(),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
