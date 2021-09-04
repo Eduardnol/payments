@@ -14,7 +14,7 @@ Suscription _$SuscriptionFromJson(Map<String, dynamic> json) {
     date: json['date'] == null ? null : DateTime.parse(json['date'] as String),
     price: (json['price'] as num).toDouble(),
     color: json['color'] as int,
-    logo: IconData(json['logo'] as int),
+    logo: IconData(json['logo'] as int, fontFamily: 'MaterialIcons'),
   );
 }
 

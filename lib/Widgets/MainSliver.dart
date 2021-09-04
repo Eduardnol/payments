@@ -1,43 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:payments/services/authenticate/auth.dart';
+import 'package:payments/utils/Utils.dart';
 
 class MainSliver extends StatelessWidget {
   final AuthService _auth = AuthService();
 
   SliverAppBar appBar() {
     return SliverAppBar(
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.blueGrey,
       expandedHeight: 200.0,
       floating: true,
-      pinned: true,
+      pinned: false,
       stretch: true,
-      actions: <Widget>[
-        TextButton.icon(
-          onPressed: () async {
-            await _auth.signOut();
-          },
-          icon: Icon(
-            Icons.logout,
-            color: Colors.white,
-          ),
-          label: Text("logout"),
-        )
-      ],
       flexibleSpace: FlexibleSpaceBar(
-        centerTitle: true,
+        centerTitle: false,
+        title: Text("Hello There!",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: TextSize.textTitle,
+              fontWeight: FontWeight.bold,
+            )),
         stretchModes: <StretchMode>[
           StretchMode.zoomBackground,
           StretchMode.blurBackground,
           StretchMode.fadeTitle
         ],
-        background: Container(
-          alignment: AlignmentDirectional.center,
-          child: Text("Hello There!",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15.0,
-                fontWeight: FontWeight.bold,
-              )),
+        background: FittedBox(
+          fit: BoxFit.fitWidth,
+          child: Image.network(
+              "https://images.unsplash.com/photo-1619970291267-0e61f239c59e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"),
         ),
         collapseMode: CollapseMode.parallax,
       ),

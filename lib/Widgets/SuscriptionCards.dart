@@ -41,7 +41,14 @@ class _SuscriptionCardsState extends State<SuscriptionCards> {
                     child: Container(
                         height: ContainerSize.smallCard,
                         width: ContainerSize.smallCard,
-                        child: Icon(widget.suscriptions!.logo)),
+                        child: Icon(
+                          widget.suscriptions!.logo,
+                          color: Color(widget.suscriptions!.color)
+                                      .computeLuminance() >
+                                  0.5
+                              ? Colors.black
+                              : Colors.white,
+                        )),
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -56,7 +63,7 @@ class _SuscriptionCardsState extends State<SuscriptionCards> {
                                   0.5
                               ? Colors.black
                               : Colors.white,
-                          fontSize: 15,
+                          fontSize: TextSizeCards.textTitle,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -65,16 +72,14 @@ class _SuscriptionCardsState extends State<SuscriptionCards> {
                       Text(
                         widget.suscriptions!.date!.day.toString() +
                             '-' +
-                            widget.suscriptions!.date!.month.toString() +
-                            '-' +
-                            widget.suscriptions!.date!.year.toString(),
+                            widget.suscriptions!.date!.month.toString(),
                         style: TextStyle(
                           color: Color(widget.suscriptions!.color)
                                       .computeLuminance() >
                                   0.5
                               ? Colors.black
                               : Colors.white,
-                          fontSize: 12,
+                          fontSize: TextSizeCards.textDate,
                         ),
                       ),
 
@@ -87,7 +92,7 @@ class _SuscriptionCardsState extends State<SuscriptionCards> {
                                   0.5
                               ? Colors.black
                               : Colors.white,
-                          fontSize: 12,
+                          fontSize: TextSizeCards.textPrice,
                         ),
                       )
                     ],
