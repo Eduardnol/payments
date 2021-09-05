@@ -42,7 +42,10 @@ class _SuscriptionCardsState extends State<SuscriptionCards> {
                         height: ContainerSize.smallCard,
                         width: ContainerSize.smallCard,
                         child: Icon(
-                          widget.suscriptions!.logo,
+                          IconData(
+                            widget.suscriptions!.logo!.codePoint,
+                            fontFamily: 'MaterialIcons',
+                          ),
                           color: Color(widget.suscriptions!.color)
                                       .computeLuminance() >
                                   0.5

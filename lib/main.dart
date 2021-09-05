@@ -53,7 +53,6 @@ class MyApp extends StatelessWidget {
         supportedLocales: [
           const Locale('es'), // Español
         ],
-
         title: 'Payments',
         darkTheme: ThemeData.dark(),
         theme: ThemeData(

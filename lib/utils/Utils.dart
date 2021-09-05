@@ -30,7 +30,7 @@ class TextSize {
   static const textSubtitle = 20.0;
   static const textNormal = 18.0;
   static const textPrice = 20.0;
-  static const textTitle = 30.0;
+  static const textTitle = 25.0;
 }
 
 class TextSizeCards {

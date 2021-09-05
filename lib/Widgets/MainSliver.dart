@@ -5,13 +5,38 @@ import 'package:payments/utils/Utils.dart';
 class MainSliver extends StatelessWidget {
   final AuthService _auth = AuthService();
 
-  SliverAppBar appBar() {
+  SliverAppBar appBar(BuildContext context) {
     return SliverAppBar(
       backgroundColor: Colors.blueGrey,
       expandedHeight: 200.0,
       floating: true,
       pinned: false,
       stretch: true,
+      actions: [
+        PopupMenuButton(
+            icon: Icon(Icons.more_vert),
+            onSelected: (_) => showAboutDialog(
+                context: context,
+                applicationName: "Payments",
+                applicationVersion: '1.0.0',
+                applicationLegalese:
+                    """Photo by "https://unsplash.com/@sysengineer?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Nicolas Horn on href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"Unsplash
+                """),
+            itemBuilder: (context) => [
+                  PopupMenuItem(
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.info_outline,
+                          color: Colors.black,
+                        ),
+                        Text("  Information"),
+                      ],
+                    ),
+                    value: 1,
+                  ),
+                ])
+      ],
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: false,
         title: Text("Hello There!",
@@ -38,6 +63,6 @@ class MainSliver extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return appBar();
+    return appBar(context);
   }
 }

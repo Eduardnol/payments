@@ -153,7 +153,13 @@ class _SuscriptionInfoState extends State<SuscriptionInfo> {
                         height: ContainerSize.bigCard,
                         width: ContainerSize.bigCard,
                         child: Icon(
-                          session.suscriptionList!.elementAt(widget.index).logo,
+                          IconData(
+                            session.suscriptionList!
+                                .elementAt(widget.index)
+                                .logo!
+                                .codePoint,
+                            fontFamily: 'MaterialIcons',
+                          ),
                           size: ContainerSize.bigCard,
                           color: Color(session.suscriptionList!
                                           .elementAt(widget.index)
