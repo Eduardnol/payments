@@ -48,24 +48,28 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(this.title),
-        backgroundColor: Theme.of(context).primaryColor,
-      ),
-      body: Container(
-        color: Colors.orange,
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: PaymentItem(),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showModalBottomSheetDialog(context);
-        },
-        tooltip: 'Add a new item',
-        child: Icon(Icons.add),
-      ),
+    return CustomScrollView(
+      slivers: [
+        SliverAppBar(
+          title: Text(title),
+          floating: true,
+          backgroundColor: Colors.green,
+          expandedHeight: 200.0,
+          flexibleSpace: FlexibleSpaceBar(
+            background: Image.network('https://picsum.photos/250?image=9'),
+          ),
+          stretch: true,
+        ),
+        SliverList(
+          delegate: SliverChildListDelegate(
+            [
+              Container(
+                height: MediaQuery.of(context).size.height,
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 

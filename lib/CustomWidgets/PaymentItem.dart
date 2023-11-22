@@ -24,9 +24,7 @@ class PaymentItem extends StatelessWidget {
                 PaymentRowItem(
                     title: "Title", value: "Spotify", icon: Icons.title),
                 PaymentRowItem(
-                    title: "Price",
-                    value: "R\$ 16,90",
-                    icon: Icons.attach_money),
+                    title: "Price", value: "16,90", icon: Icons.attach_money),
                 PaymentRowItem(
                     title: "Desctiption",
                     value: "Music",
