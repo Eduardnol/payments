@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:payments/Widgets/PopupInfo.dart';
 import 'package:payments/models/Suscription.dart';
 import 'package:payments/utils/Utils.dart';
@@ -111,9 +110,7 @@ class _SuscriptionCardsState extends State<SuscriptionCards> {
 
   ///Is going to show a Bottom Sheet coming down the screen showing more info about the card
   void _onButtonPressed(BuildContext pepe) {
-    showCupertinoModalBottomSheet(
-        bounce: true,
-        expand: true,
+    showModalBottomSheet(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(Borders.borderCard)),
         enableDrag: true,
@@ -124,5 +121,4 @@ class _SuscriptionCardsState extends State<SuscriptionCards> {
   }
 
 //TODO eliminar update interface y revisar el modo de obtener datos de las SuscriptionCards y su relacion con la gridView
-
 }

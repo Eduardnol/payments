@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:payments/Widgets/Pickers.dart';
 import 'package:payments/actions/Checker.dart';
 import 'package:payments/models/Session.dart';
@@ -21,7 +20,7 @@ class _SuscriptionInfoState extends State<SuscriptionInfo> {
   void _iconPicker(BuildContext context) async {
     Session suscription = Provider.of<Session>(context, listen: false);
     IconData? icon = await FlutterIconPicker.showIconPicker(context,
-        iconPackMode: IconPack.material);
+        iconPackModes: [IconPack.material]);
     if (icon != null) {
       suscription.editLogo(widget.index, icon);
     }
@@ -62,9 +61,7 @@ class _SuscriptionInfoState extends State<SuscriptionInfo> {
           firstDate: DateTime(2000),
           lastDate: DateTime(2090));
     else
-      showCupertinoModalBottomSheet(
-          bounce: false,
-          expand: false,
+      showModalBottomSheet(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(Borders.borderCard)),
           enableDrag: true,
@@ -89,8 +86,7 @@ class _SuscriptionInfoState extends State<SuscriptionInfo> {
           firstDate: DateTime(2000),
           lastDate: DateTime(2090));
     else
-      showCupertinoModalBottomSheet(
-        expand: true,
+      showModalBottomSheet(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(Borders.borderCard)),
         enableDrag: true,
@@ -106,8 +102,7 @@ class _SuscriptionInfoState extends State<SuscriptionInfo> {
 
   ///Name picker for Cupertino
   void _showCupertinoNamePicker(BuildContext context) {
-    showCupertinoModalBottomSheet(
-      expand: true,
+    showModalBottomSheet(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(Borders.borderCard)),
       enableDrag: true,

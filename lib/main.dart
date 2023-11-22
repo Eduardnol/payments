@@ -12,13 +12,14 @@ import 'package:payments/utils/Save.dart';
 import 'package:payments/utils/Utils.dart';
 import 'package:provider/provider.dart';
 
+import 'firebase_options.dart';
 import 'models/Session.dart';
 import 'models/UserLocal.dart';
 
 //TODO iOS firebase cloud messaging
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await SaveInformation.init();
   runApp(
     MyApp(),
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         navigatorObservers: [
-          FirebaseAnalyticsObserver(analytics: FirebaseAnalytics())
+          // FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
         ],
         localizationsDelegates: [
           // ... delegado[s] de localización específicos de la app aquí
@@ -69,13 +70,13 @@ class MyApp extends StatelessWidget {
             TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
           }),
           primaryColor: ColorsApp.primary,
-          accentColor: ColorsApp.secondary,
-          primarySwatch: Colors.green,
-          backgroundColor: ColorsApp.background,
+          hintColor: ColorsApp.secondary,
           // This makes the visual density adapt to the platform that you run
           // the app on. For desktop platforms, the controls will be smaller and
           // closer together (more dense) than on mobile platforms.
           visualDensity: VisualDensity.adaptivePlatformDensity,
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.green)
+              .copyWith(background: ColorsApp.background),
         ),
         home: Wrapper(), //MyHomePage(c),
       ),
