@@ -1,16 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:payments/models/SaveInformation.dart';
-import 'package:payments/services/authenticate/Wrapper.dart';
-import 'package:payments/services/authenticate/auth.dart';
-import 'package:payments/utils/Save.dart';
-import 'package:payments/utils/Utils.dart';
-
 import 'CustomWidgets/PaymentItem.dart';
 import 'firebase_options.dart';
-import 'models/Session.dart';
-import 'models/UserLocal.dart';
 
 //TODO iOS firebase cloud messaging
 Future<void> main() async {
