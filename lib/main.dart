@@ -46,7 +46,6 @@ class MyApp extends StatelessWidget {
           // FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
         ],
         localizationsDelegates: [
-          // ... delegado[s] de localización específicos de la app aquí
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
