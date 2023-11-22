@@ -21,10 +21,20 @@ class PaymentItem extends StatelessWidget {
             flex: 9,
             child: Column(
               children: [
-                PaymentRowItem(title: "Title", value: "Spotify"),
-                PaymentRowItem(title: "Price", value: "R\$ 16,90"),
-                PaymentRowItem(title: "Desctiption", value: "Music"),
-                PaymentRowItem(title: "Date", value: "01/01/2021"),
+                PaymentRowItem(
+                    title: "Title", value: "Spotify", icon: Icons.title),
+                PaymentRowItem(
+                    title: "Price",
+                    value: "R\$ 16,90",
+                    icon: Icons.attach_money),
+                PaymentRowItem(
+                    title: "Desctiption",
+                    value: "Music",
+                    icon: Icons.description),
+                PaymentRowItem(
+                    title: "Date",
+                    value: "01/01/2021",
+                    icon: Icons.calendar_today),
               ],
             ),
           ),
@@ -37,20 +47,37 @@ class PaymentItem extends StatelessWidget {
 class PaymentRowItem extends StatelessWidget {
   final String title;
   final String value;
+  final IconData icon;
 
   PaymentRowItem({
     super.key,
     required this.title,
     required this.value,
+    required this.icon,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Column(
       children: [
-        Expanded(child: Text(title), flex: 8),
-        Expanded(child: Text(value), flex: 2),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                  child: Row(
+                    children: [
+                      Icon(icon),
+                      Text(title),
+                    ],
+                  ),
+                  flex: 8),
+              Expanded(child: Text(value), flex: 2),
+            ],
+          ),
+        ),
+        Divider(),
       ],
     );
   }
