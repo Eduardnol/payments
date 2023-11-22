@@ -30,6 +30,11 @@ flutter create .
 To generate the icons, they should be in assets folder and in `pubspec.yaml` after thar run:
 
 ```shell
-flutter pub get
-flutter pub run flutter_launcher_icons:main
+dart run get
+dart run flutter_launcher_icons:main
+```
+It is possible that gradle version is not compatible with the project, to fix it run:
+```shell
+cd android
+./gradlew wrapper --gradle-version=7.6.1
 ```
