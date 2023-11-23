@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:payments/CustomWidgets/BottomAppBarInfo.dart';
 import 'CustomWidgets/PaymentItem.dart';
 import 'firebase_options.dart';
 
@@ -40,45 +41,61 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        SliverAppBar(
-          floating: true,
-          pinned: true,
-          snap: true,
-          backgroundColor: Colors.green,
-          expandedHeight: 200.0,
-          flexibleSpace: FlexibleSpaceBar(
-            centerTitle: false,
-            title: Text("Hello There!",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                )),
-            stretchModes: <StretchMode>[
-              StretchMode.zoomBackground,
-              StretchMode.blurBackground,
-              StretchMode.fadeTitle
-            ],
-            background: FittedBox(
-              fit: BoxFit.fitWidth,
-              child: Image.network(
-                  "https://images.unsplash.com/photo-1619970291267-0e61f239c59e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"),
-            ),
-            collapseMode: CollapseMode.pin,
-          ),
-          stretch: true,
-        ),
-        SliverList(
-          delegate: SliverChildListDelegate(
-            [
-              Container(
-                height: MediaQuery.of(context).size.height,
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            floating: true,
+            pinned: true,
+            snap: true,
+            backgroundColor: Colors.green,
+            expandedHeight: 200.0,
+            flexibleSpace: FlexibleSpaceBar(
+              centerTitle: false,
+              title: Text("Hello There!",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  )),
+              stretchModes: <StretchMode>[
+                StretchMode.zoomBackground,
+                StretchMode.blurBackground,
+                StretchMode.fadeTitle
+              ],
+              background: FittedBox(
+                fit: BoxFit.fitWidth,
+                child: Image.network(
+                    "https://images.unsplash.com/photo-1619970291267-0e61f239c59e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"),
               ),
-            ],
+              collapseMode: CollapseMode.pin,
+            ),
+            stretch: true,
           ),
-        ),
-      ],
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                Container(
+                  height: MediaQuery.of(context).size.height,
+                ),
+                FloatingActionButton(
+                  onPressed: () {
+                    showModalBottomSheetDialog(context);
+                  },
+                  child: Icon(Icons.add),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomAppBarInfo(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showModalBottomSheetDialog(context);
+        },
+        child: Icon(Icons.add),
+      ),
     );
   }
 
