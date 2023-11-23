@@ -44,14 +44,15 @@ class MyHomePage extends StatelessWidget {
       slivers: [
         SliverAppBar(
           floating: true,
-          pinned: false,
+          pinned: true,
+          snap: true,
           backgroundColor: Colors.green,
           expandedHeight: 200.0,
           flexibleSpace: FlexibleSpaceBar(
             centerTitle: false,
             title: Text("Hello There!",
                 style: TextStyle(
-                  color: Colors.green,
+                  color: Colors.white,
                   fontWeight: FontWeight.bold,
                 )),
             stretchModes: <StretchMode>[
