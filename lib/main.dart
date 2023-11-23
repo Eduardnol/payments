@@ -22,8 +22,7 @@ class MyApp extends StatelessWidget {
       title: 'Payments',
       theme: ThemeData(
         // This is the theme of your application.
-        primaryColor: Colors.blue,
-        hintColor: Colors.blueAccent,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         textTheme: GoogleFonts.montserratTextTheme(
           Theme.of(context).textTheme,
         ),
