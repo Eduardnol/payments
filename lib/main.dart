@@ -77,19 +77,13 @@ class MyHomePage extends StatelessWidget {
                 Container(
                   height: MediaQuery.of(context).size.height,
                 ),
-                FloatingActionButton(
-                  onPressed: () {
-                    showModalBottomSheetDialog(context);
-                  },
-                  child: Icon(Icons.add),
-                ),
               ],
             ),
           ),
         ],
       ),
       bottomNavigationBar: BottomAppBarInfo(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheetDialog(context);

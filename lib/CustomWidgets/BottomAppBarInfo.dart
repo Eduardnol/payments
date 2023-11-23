@@ -6,7 +6,16 @@ class BottomAppBarInfo extends StatelessWidget {
     // TODO: implement build
     final total = 9.9;
     return BottomAppBar(
-      shape: CircularNotchedRectangle(),
+      shape: AutomaticNotchedShape(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(0),
+          ),
+        ),
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+        ),
+      ),
       color: Theme.of(context).primaryColor,
       child: Container(
         height: 55,
