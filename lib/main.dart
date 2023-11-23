@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       title: 'Payments',
       theme: ThemeData(
         // This is the theme of your application.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
         textTheme: GoogleFonts.montserratTextTheme(
           Theme.of(context).textTheme,
         ),
@@ -47,15 +47,14 @@ class MyHomePage extends StatelessWidget {
             floating: true,
             pinned: true,
             snap: true,
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Theme.of(context).colorScheme.primary,
             expandedHeight: 200.0,
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: false,
               title: Text("Hello There!",
-                  style: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                    fontWeight: FontWeight.bold,
-                  )),
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      )),
               stretchModes: <StretchMode>[
                 StretchMode.zoomBackground,
                 StretchMode.blurBackground,
@@ -95,7 +94,7 @@ class MyHomePage extends StatelessWidget {
   void showModalBottomSheetDialog(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      backgroundColor: Theme.of(context).dialogBackgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.secondary,
       builder: (BuildContext context) {
         return Container(
           height: MediaQuery.of(context).size.height,

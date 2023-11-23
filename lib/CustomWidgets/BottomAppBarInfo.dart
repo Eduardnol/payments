@@ -16,25 +16,15 @@ class BottomAppBarInfo extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(15)),
         ),
       ),
-      color: Theme.of(context).primaryColor,
+      color: Theme.of(context).colorScheme.primary,
       child: Container(
         height: 55,
-        color: Colors.blue.withOpacity(0.1),
+        color: Theme.of(context).colorScheme.primary,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              "",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontStyle: FontStyle.normal,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
+          children: <Widget>[],
         ),
       ),
     );

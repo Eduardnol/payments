@@ -67,11 +67,23 @@ class PaymentRowItem extends StatelessWidget {
                   child: Row(
                     children: [
                       Icon(icon),
-                      Text(title),
+                      Text(title,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(
+                                color:
+                                    Theme.of(context).colorScheme.onSecondary,
+                              )),
                     ],
                   ),
                   flex: 8),
-              Expanded(child: Text(value), flex: 2),
+              Expanded(
+                  child: Text(value,
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                            color: Theme.of(context).colorScheme.onSecondary,
+                          )),
+                  flex: 2),
             ],
           ),
         ),
@@ -94,20 +106,20 @@ class SaveCancelButtons extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: Text("Cancel"),
-          style: ButtonStyle(
-            foregroundColor: MaterialStateProperty.all<Color>(Colors.red),
-          ),
+          child: Text("Cancel",
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    color: Theme.of(context).colorScheme.error,
+                  )),
         ),
         Spacer(),
         TextButton(
           onPressed: () {
             Navigator.pop(context);
           },
-          child: Text("Save"),
-          style: ButtonStyle(
-            foregroundColor: MaterialStateProperty.all<Color>(Colors.green),
-          ),
+          child: Text("Save",
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    color: Theme.of(context).colorScheme.scrim,
+                  )),
         ),
       ],
     );
