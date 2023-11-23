@@ -47,13 +47,13 @@ class MyHomePage extends StatelessWidget {
             floating: true,
             pinned: true,
             snap: true,
-            backgroundColor: Colors.green,
+            backgroundColor: Theme.of(context).primaryColor,
             expandedHeight: 200.0,
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: false,
               title: Text("Hello There!",
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Theme.of(context).primaryColor,
                     fontWeight: FontWeight.bold,
                   )),
               stretchModes: <StretchMode>[
@@ -95,6 +95,7 @@ class MyHomePage extends StatelessWidget {
   void showModalBottomSheetDialog(BuildContext context) {
     showModalBottomSheet(
       context: context,
+      backgroundColor: Theme.of(context).dialogBackgroundColor,
       builder: (BuildContext context) {
         return Container(
           height: MediaQuery.of(context).size.height,
