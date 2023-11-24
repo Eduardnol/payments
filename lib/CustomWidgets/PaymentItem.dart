@@ -79,10 +79,21 @@ class PaymentRowItem extends StatelessWidget {
                   ),
                   flex: 8),
               Expanded(
-                  child: Text(value,
-                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      labelText: title,
+                      labelStyle: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .copyWith(
                             color: Theme.of(context).colorScheme.onSecondary,
-                          )),
+                          ),
+                    ),
+                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                          color: Theme.of(context).colorScheme.onSecondary,
+                        ),
+                    controller: TextEditingController(text: value),
+                  ),
                   flex: 2),
             ],
           ),
