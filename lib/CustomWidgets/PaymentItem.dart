@@ -1,29 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../Model/PaymentItemObject.dart';
+
 class PaymentItem extends StatelessWidget {
   //list of payment components
-  final String title;
-  final String price;
-  final String description;
-  final String date;
-  final String category;
+  final PaymentItemObject paymentItemObject;
 
   const PaymentItem({
     super.key,
-    required this.title,
-    required this.price,
-    required this.description,
-    required this.date,
-    required this.category,
+    required this.paymentItemObject,
   });
   savePayment() {
     FirebaseFirestore.instance.collection('payments').add({
-      'title': title,
-      'price': price,
-      'description': description,
-      'date': date,
-      'category': category,
+      'title': paymentItemObject.title,
+      'price': paymentItemObject.price,
+      'description': paymentItemObject.description,
+      'date': paymentItemObject.date,
+      'category': paymentItemObject.category,
     });
   }
 
@@ -67,18 +61,20 @@ class PaymentItem extends StatelessWidget {
             child: Column(
               children: [
                 PaymentRowItem(
-                    title: "Title", value: this.title, icon: Icons.title),
+                    title: "Title",
+                    value: this.paymentItemObject.title,
+                    icon: Icons.title),
                 PaymentRowItem(
                     title: "Price",
-                    value: this.price,
+                    value: this.paymentItemObject.price,
                     icon: Icons.attach_money),
                 PaymentRowItem(
                     title: "Description",
-                    value: this.description,
+                    value: this.paymentItemObject.description,
                     icon: Icons.description),
                 PaymentRowItem(
                     title: "Date",
-                    value: this.date,
+                    value: this.paymentItemObject.date,
                     icon: Icons.calendar_today),
               ],
             ),

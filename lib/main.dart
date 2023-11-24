@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:payments/CustomWidgets/BottomAppBarInfo.dart';
 import 'CustomWidgets/PaymentItem.dart';
+import 'Model/PaymentItemObject.dart';
 import 'firebase_options.dart';
 
 //TODO iOS firebase cloud messaging
@@ -100,12 +101,13 @@ class MyHomePage extends StatelessWidget {
         return Container(
           height: MediaQuery.of(context).size.height,
           child: PaymentItem(
+              paymentItemObject: PaymentItemObject(
             title: "Spotify",
             price: "9.99",
             date: "Today",
             category: "Music",
             description: "Spotify Premium",
-          ),
+          )),
         );
       },
     );
