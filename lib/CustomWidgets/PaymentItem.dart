@@ -1,9 +1,31 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class PaymentItem extends StatelessWidget {
+  //list of payment components
+  final String title;
+  final String price;
+  final String description;
+  final String date;
+  final String category;
+
   const PaymentItem({
     super.key,
+    required this.title,
+    required this.price,
+    required this.description,
+    required this.date,
+    required this.category,
   });
+  savePayment() {
+    FirebaseFirestore.instance.collection('payments').add({
+      'title': title,
+      'price': price,
+      'description': description,
+      'date': date,
+      'category': category,
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,23 +37,48 @@ class PaymentItem extends StatelessWidget {
         children: [
           Expanded(
             flex: 1,
-            child: SaveCancelButtons(),
+            child: Row(
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("Cancel",
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: Theme.of(context).colorScheme.error,
+                          )),
+                ),
+                Spacer(),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    savePayment();
+                  },
+                  child: Text("Save",
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: Theme.of(context).colorScheme.scrim,
+                          )),
+                ),
+              ],
+            ),
           ),
           Expanded(
             flex: 9,
             child: Column(
               children: [
                 PaymentRowItem(
-                    title: "Title", value: "Spotify", icon: Icons.title),
+                    title: "Title", value: this.title, icon: Icons.title),
                 PaymentRowItem(
-                    title: "Price", value: "16,90", icon: Icons.attach_money),
+                    title: "Price",
+                    value: this.price,
+                    icon: Icons.attach_money),
                 PaymentRowItem(
                     title: "Description",
-                    value: "Music",
+                    value: this.description,
                     icon: Icons.description),
                 PaymentRowItem(
                     title: "Date",
-                    value: "01/01/2021",
+                    value: this.date,
                     icon: Icons.calendar_today),
               ],
             ),
@@ -66,7 +113,10 @@ class PaymentRowItem extends StatelessWidget {
               Expanded(
                   child: Row(
                     children: [
-                      Icon(icon),
+                      Icon(
+                        icon,
+                        color: Theme.of(context).colorScheme.onSecondary,
+                      ),
                       Text(title,
                           style: Theme.of(context)
                               .textTheme
@@ -74,6 +124,7 @@ class PaymentRowItem extends StatelessWidget {
                               .copyWith(
                                 color:
                                     Theme.of(context).colorScheme.onSecondary,
+                                fontWeight: FontWeight.bold,
                               )),
                     ],
                   ),
@@ -99,39 +150,6 @@ class PaymentRowItem extends StatelessWidget {
           ),
         ),
         Divider(),
-      ],
-    );
-  }
-}
-
-class SaveCancelButtons extends StatelessWidget {
-  const SaveCancelButtons({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        TextButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Text("Cancel",
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    color: Theme.of(context).colorScheme.error,
-                  )),
-        ),
-        Spacer(),
-        TextButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Text("Save",
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    color: Theme.of(context).colorScheme.scrim,
-                  )),
-        ),
       ],
     );
   }

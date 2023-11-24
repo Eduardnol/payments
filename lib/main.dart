@@ -99,7 +99,13 @@ class MyHomePage extends StatelessWidget {
       builder: (BuildContext context) {
         return Container(
           height: MediaQuery.of(context).size.height,
-          child: PaymentItem(),
+          child: PaymentItem(
+            title: "Spotify",
+            price: "9.99",
+            date: "Today",
+            category: "Music",
+            description: "Spotify Premium",
+          ),
         );
       },
     );
