@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../Model/PaymentItemObject.dart';
-import 'PaymentItem.dart';
 
 class GridListPayments extends StatelessWidget {
   @override
@@ -27,7 +26,7 @@ class PaymentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 200,
+        height: 100,
         child: Card(
           child: Row(
             children: [
@@ -42,15 +41,18 @@ class PaymentCard extends StatelessWidget {
                       child: Icon(Icons.attach_money)),
                   flex: 1),
               Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(paymentItemObject.title,
-                        style: Theme.of(context).textTheme.titleLarge!),
-                    Text(paymentItemObject.date),
-                    Text(paymentItemObject.category),
-                  ],
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(paymentItemObject.title,
+                          style: Theme.of(context).textTheme.titleLarge!),
+                      Text(paymentItemObject.date),
+                      Text(paymentItemObject.category),
+                    ],
+                  ),
                 ),
                 flex: 8,
               ),
