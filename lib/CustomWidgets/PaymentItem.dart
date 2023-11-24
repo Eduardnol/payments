@@ -18,6 +18,7 @@ class PaymentItem extends StatelessWidget {
       'description': paymentItemObject.description,
       'date': paymentItemObject.date,
       'category': paymentItemObject.category,
+      'createdOn': DateTime.now().toString(),
     });
   }
 
@@ -62,19 +63,20 @@ class PaymentItem extends StatelessWidget {
               children: [
                 PaymentRowItem(
                     title: "Title",
-                    value: this.paymentItemObject.title,
+                    paymentItemObject: paymentItemObject,
                     icon: Icons.title),
                 PaymentRowItem(
-                    title: "Price",
-                    value: this.paymentItemObject.price,
-                    icon: Icons.attach_money),
+                  title: "Price",
+                  icon: Icons.attach_money,
+                  paymentItemObject: paymentItemObject,
+                ),
                 PaymentRowItem(
                     title: "Description",
-                    value: this.paymentItemObject.description,
+                    paymentItemObject: paymentItemObject,
                     icon: Icons.description),
                 PaymentRowItem(
                     title: "Date",
-                    value: this.paymentItemObject.date,
+                    paymentItemObject: paymentItemObject,
                     icon: Icons.calendar_today),
               ],
             ),
@@ -86,19 +88,30 @@ class PaymentItem extends StatelessWidget {
 }
 
 class PaymentRowItem extends StatelessWidget {
+  final PaymentItemObject paymentItemObject;
   final String title;
-  final String value;
   final IconData icon;
 
   PaymentRowItem({
     super.key,
+    required this.paymentItemObject,
     required this.title,
-    required this.value,
     required this.icon,
   });
 
   @override
   Widget build(BuildContext context) {
+    var value = "";
+    if (title == "Title") {
+      value = paymentItemObject.title;
+    } else if (title == "Price") {
+      value = paymentItemObject.price;
+    } else if (title == "Description") {
+      value = paymentItemObject.description;
+    } else if (title == "Date") {
+      value = paymentItemObject.date;
+    }
+
     return Column(
       children: [
         Padding(
@@ -110,7 +123,7 @@ class PaymentRowItem extends StatelessWidget {
                   child: Row(
                     children: [
                       Icon(
-                        icon,
+                        Icons.title,
                         color: Theme.of(context).colorScheme.onSecondary,
                       ),
                       Text(title,
@@ -127,6 +140,17 @@ class PaymentRowItem extends StatelessWidget {
                   flex: 8),
               Expanded(
                   child: TextField(
+                    onChanged: (value) {
+                      if (title == "Title") {
+                        paymentItemObject.title = value;
+                      } else if (title == "Price") {
+                        paymentItemObject.price = value;
+                      } else if (title == "Description") {
+                        paymentItemObject.description = value;
+                      } else if (title == "Date") {
+                        paymentItemObject.date = value;
+                      }
+                    },
                     decoration: InputDecoration(
                       labelText: title,
                       labelStyle: Theme.of(context)
