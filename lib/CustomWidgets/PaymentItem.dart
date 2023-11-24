@@ -26,7 +26,7 @@ class PaymentItem extends StatelessWidget {
                 PaymentRowItem(
                     title: "Price", value: "16,90", icon: Icons.attach_money),
                 PaymentRowItem(
-                    title: "Desctiption",
+                    title: "Description",
                     value: "Music",
                     icon: Icons.description),
                 PaymentRowItem(
@@ -70,7 +70,7 @@ class PaymentRowItem extends StatelessWidget {
                       Text(title,
                           style: Theme.of(context)
                               .textTheme
-                              .bodySmall!
+                              .bodyLarge!
                               .copyWith(
                                 color:
                                     Theme.of(context).colorScheme.onSecondary,
@@ -89,7 +89,7 @@ class PaymentRowItem extends StatelessWidget {
                             color: Theme.of(context).colorScheme.onSecondary,
                           ),
                     ),
-                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           color: Theme.of(context).colorScheme.onSecondary,
                         ),
                     controller: TextEditingController(text: value),
