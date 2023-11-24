@@ -85,14 +85,14 @@ class MyHomePage extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showModalBottomSheetDialog(context);
+          createItemFromModalBottomSheetDialog(context);
         },
         child: Icon(Icons.add),
       ),
     );
   }
 
-  void showModalBottomSheetDialog(BuildContext context) {
+  void createItemFromModalBottomSheetDialog(BuildContext context) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Theme.of(context).colorScheme.secondary,
