@@ -5,6 +5,7 @@ import 'package:payments/CustomWidgets/BottomAppBarInfo.dart';
 import 'CustomWidgets/PaymentItem.dart';
 import 'Model/PaymentItemObject.dart';
 import 'firebase_options.dart';
+import 'CustomWidgets/GridListPayments.dart';
 
 //TODO iOS firebase cloud messaging
 Future<void> main() async {
@@ -76,6 +77,7 @@ class MyHomePage extends StatelessWidget {
               [
                 Container(
                   height: MediaQuery.of(context).size.height,
+                  child: GridListPayments(),
                 ),
               ],
             ),
