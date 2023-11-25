@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:payments/CustomWidgets/BottomAppBarInfo.dart';
 import 'package:payments/CustomWidgets/ModalBottomSheet/ModalBottomSheetCustom.dart';
-import 'CustomWidgets/ModalBottomSheet/PaymentItem.dart';
 import 'Model/PaymentItemObject.dart';
 import 'firebase_options.dart';
 import 'CustomWidgets/GridListPayments.dart';
