@@ -24,10 +24,12 @@ class MyApp extends StatelessWidget {
       title: 'Payments',
       theme: ThemeData(
         // This is the theme of your application.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
+        colorSchemeSeed: Colors.red,
+        brightness: Brightness.dark,
         textTheme: GoogleFonts.montserratTextTheme(
           Theme.of(context).textTheme,
         ),
+        useMaterial3: true,
       ),
       home: MyHomePage(title: "Hello World Flutter Application"),
     );
@@ -43,6 +45,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -76,6 +79,7 @@ class MyHomePage extends StatelessWidget {
             delegate: SliverChildListDelegate(
               [
                 Container(
+                  color: Colors.transparent,
                   height: MediaQuery.of(context).size.height,
                   child: GridListPayments(),
                 ),
@@ -87,6 +91,7 @@ class MyHomePage extends StatelessWidget {
       bottomNavigationBar: BottomAppBarInfo(),
       floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).colorScheme.primary,
         onPressed: () {
           createItemFromModalBottomSheetDialog(context);
         },

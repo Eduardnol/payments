@@ -16,17 +16,7 @@ class BottomAppBarInfo extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(15)),
         ),
       ),
-      color: Theme.of(context).colorScheme.primary,
-      child: Container(
-        height: 55,
-        color: Theme.of(context).colorScheme.primary,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[],
-        ),
-      ),
+      color: Theme.of(context).colorScheme.surfaceVariant,
     );
   }
 }
