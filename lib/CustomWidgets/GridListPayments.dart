@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../Model/PaymentItemObject.dart';
+import 'ModalBottomSheetCustom.dart';
 
 class GridListPayments extends StatelessWidget {
   Future<List<PaymentItemObject>> retrievePayments() async {
@@ -29,12 +30,10 @@ class GridListPayments extends StatelessWidget {
       future: retrievePayments(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Container(
-              width: 15,
-              height: 15,
+          return Center(
               child: CircularProgressIndicator()); // or any loading indicator
         } else if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
+          return Text('Connection ERROR');
         } else {
           List<PaymentItemObject>? paymentItemObjects = snapshot.data;
           return ListView(
@@ -57,43 +56,58 @@ class PaymentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print("PaymentCard: ${paymentItemObject.title}");
-    return Container(
-        height: 100,
-        child: Card(
-          child: Row(
-            children: [
-              Expanded(
-                  child: Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Theme.of(context).colorScheme.tertiary,
-                      ),
-                      child: Icon(Icons.attach_money)),
-                  flex: 1),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(paymentItemObject.title,
-                          style: Theme.of(context).textTheme.titleLarge!),
-                      Text(paymentItemObject.date),
-                      Text(paymentItemObject.category),
-                    ],
+    return GestureDetector(
+      onTap: () {
+        showItemFromModalBottomSheetDialog(context);
+      },
+      child: Container(
+          height: 100,
+          child: Card(
+            child: Row(
+              children: [
+                Expanded(
+                    child: Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Theme.of(context).colorScheme.tertiary,
+                        ),
+                        child: Icon(Icons.attach_money)),
+                    flex: 1),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(paymentItemObject.title,
+                            style: Theme.of(context).textTheme.titleLarge!),
+                        Text(paymentItemObject.date),
+                        Text(paymentItemObject.category),
+                      ],
+                    ),
                   ),
+                  flex: 8,
                 ),
-                flex: 8,
-              ),
-              Expanded(
-                child: Text(paymentItemObject.price),
-                flex: 1,
-              ),
-            ],
-          ),
-        ));
+                Expanded(
+                  child: Text(paymentItemObject.price),
+                  flex: 1,
+                ),
+              ],
+            ),
+          )),
+    );
+  }
+
+  void showItemFromModalBottomSheetDialog(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Theme.of(context).colorScheme.secondary,
+      builder: (BuildContext context) {
+        return ModalBottomSheetCustom(paymentItemObject: paymentItemObject);
+      },
+    );
   }
 }

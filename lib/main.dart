@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:payments/CustomWidgets/BottomAppBarInfo.dart';
+import 'package:payments/CustomWidgets/ModalBottomSheetCustom.dart';
 import 'CustomWidgets/PaymentItem.dart';
 import 'Model/PaymentItemObject.dart';
 import 'firebase_options.dart';
@@ -100,17 +101,14 @@ class MyHomePage extends StatelessWidget {
       context: context,
       backgroundColor: Theme.of(context).colorScheme.secondary,
       builder: (BuildContext context) {
-        return Container(
-          height: MediaQuery.of(context).size.height,
-          child: PaymentItem(
-              paymentItemObject: PaymentItemObject(
-            title: "Spotify",
-            price: "9.99",
-            date: "Today",
-            category: "Music",
-            description: "Spotify Premium",
-          )),
-        );
+        return ModalBottomSheetCustom(
+            paymentItemObject: PaymentItemObject(
+          date: "2021-05-01",
+          title: "Hello World",
+          category: "Food",
+          price: "10.00",
+          description: 'DESC',
+        ));
       },
     );
   }
