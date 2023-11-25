@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../Model/PaymentItemObject.dart';
+import '../../Model/PaymentItemObject.dart';
 import 'PaymentItem.dart';
 
 class ModalBottomSheetCustom extends StatelessWidget {

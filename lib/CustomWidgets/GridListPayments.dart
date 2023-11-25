@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../Model/PaymentItemObject.dart';
-import 'ModalBottomSheetCustom.dart';
+import 'ModalBottomSheet/ModalBottomSheetCustom.dart';
 
 class GridListPayments extends StatelessWidget {
   Future<List<PaymentItemObject>> retrievePayments() async {

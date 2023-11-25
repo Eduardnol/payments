@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import '../Model/PaymentItemObject.dart';
+import '../../Model/PaymentItemObject.dart';
 
 class PaymentItem extends StatelessWidget {
   //list of payment components
@@ -119,57 +119,83 @@ class PaymentRowItem extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Expanded(child: TagName(title: title), flex: 4),
               Expanded(
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.title,
-                        color: Theme.of(context).colorScheme.onSecondary,
-                      ),
-                      Text(title,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge!
-                              .copyWith(
-                                color:
-                                    Theme.of(context).colorScheme.onSecondary,
-                                fontWeight: FontWeight.bold,
-                              )),
-                    ],
-                  ),
-                  flex: 8),
-              Expanded(
-                  child: TextField(
-                    onChanged: (value) {
-                      if (title == "Title") {
-                        paymentItemObject.title = value;
-                      } else if (title == "Price") {
-                        paymentItemObject.price = value;
-                      } else if (title == "Description") {
-                        paymentItemObject.description = value;
-                      } else if (title == "Date") {
-                        paymentItemObject.date = value;
-                      }
-                    },
-                    decoration: InputDecoration(
-                      labelText: title,
-                      labelStyle: Theme.of(context)
-                          .textTheme
-                          .bodyMedium!
-                          .copyWith(
-                            color: Theme.of(context).colorScheme.onSecondary,
-                          ),
-                    ),
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          color: Theme.of(context).colorScheme.onSecondary,
-                        ),
-                    controller: TextEditingController(text: value),
-                  ),
-                  flex: 2),
+                  child: ValueName(
+                      title: title,
+                      paymentItemObject: paymentItemObject,
+                      value: value),
+                  flex: 6),
             ],
           ),
         ),
         Divider(),
+      ],
+    );
+  }
+}
+
+class ValueName extends StatelessWidget {
+  const ValueName({
+    super.key,
+    required this.title,
+    required this.paymentItemObject,
+    required this.value,
+  });
+
+  final String title;
+  final PaymentItemObject paymentItemObject;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      onChanged: (value) {
+        if (title == "Title") {
+          paymentItemObject.title = value;
+        } else if (title == "Price") {
+          paymentItemObject.price = value;
+        } else if (title == "Description") {
+          paymentItemObject.description = value;
+        } else if (title == "Date") {
+          paymentItemObject.date = value;
+        }
+      },
+      decoration: InputDecoration(
+        labelText: title,
+        labelStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+              color: Theme.of(context).colorScheme.onSecondary,
+            ),
+      ),
+      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+            color: Theme.of(context).colorScheme.onSecondary,
+          ),
+      controller: TextEditingController(text: value),
+    );
+  }
+}
+
+class TagName extends StatelessWidget {
+  const TagName({
+    super.key,
+    required this.title,
+  });
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(
+          Icons.title,
+          color: Theme.of(context).colorScheme.onSecondary,
+        ),
+        Text(title,
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.onSecondary,
+                  fontWeight: FontWeight.bold,
+                )),
       ],
     );
   }
