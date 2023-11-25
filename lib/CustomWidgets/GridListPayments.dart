@@ -1,41 +1,31 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../Model/PaymentItemObject.dart';
 
 class GridListPayments extends StatelessWidget {
-  List<PaymentItemObject> retrievePayments() {
-    List<PaymentItemObject> paymentItemObjects = [
-      PaymentItemObject(
-        title: 'Payment 31',
-        price: '100.00',
-        description: 'This is a description for payment 1',
-        date: '2023-11-25',
-        category: 'Electronics',
-      ),
-    ];
-
-    FirebaseFirestore.instance.collection('payments').get().then(
-      (value) {
-        print("Retrieved: " + "${value.docs.length}");
-        value.docs.forEach((element) {
-          paymentItemObjects.add(PaymentItemObject(
-            title: element.data()['title'],
-            price: element.data()['price'],
-            description: element.data()['description'],
-            date: element.data()['date'],
-            category: element.data()['category'],
-          ));
-        });
-      },
-      onError: (e) => print("Error completing: $e"),
-    );
-    return paymentItemObjects;
+  void retrievePayments(List<PaymentItemObject> paymentItemObjects) async {
+    var downloadedData =
+        await FirebaseFirestore.instance.collection('payments').get();
+    downloadedData.docs.forEach((element) {
+      paymentItemObjects.add(PaymentItemObject(
+        title: element.data()['title'],
+        price: element.data()['price'],
+        description: element.data()['description'],
+        date: element.data()['date'],
+        category: element.data()['category'],
+      ));
+    });
+    print("Elements saved: ${paymentItemObjects.length}");
   }
 
   @override
   Widget build(BuildContext context) {
-    List<PaymentItemObject> paymentItemObjects = retrievePayments();
+    List<PaymentItemObject> paymentItemObjects = [];
+    retrievePayments(paymentItemObjects);
+    print("GridListPayments: ${paymentItemObjects.length}");
     return ListView(
       children: [
         for (var paymentItemObject in paymentItemObjects)
@@ -52,6 +42,7 @@ class PaymentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("PaymentCard: ${paymentItemObject.title}");
     return Container(
         height: 100,
         child: Card(
