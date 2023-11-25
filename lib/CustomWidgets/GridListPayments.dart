@@ -6,9 +6,10 @@ import 'package:flutter/material.dart';
 import '../Model/PaymentItemObject.dart';
 
 class GridListPayments extends StatelessWidget {
-  void retrievePayments(List<PaymentItemObject> paymentItemObjects) async {
+  Future<List<PaymentItemObject>> retrievePayments() async {
     var downloadedData =
         await FirebaseFirestore.instance.collection('payments').get();
+    List<PaymentItemObject> paymentItemObjects = [];
     downloadedData.docs.forEach((element) {
       paymentItemObjects.add(PaymentItemObject(
         title: element.data()['title'],
@@ -19,18 +20,31 @@ class GridListPayments extends StatelessWidget {
       ));
     });
     print("Elements saved: ${paymentItemObjects.length}");
+    return paymentItemObjects;
   }
 
   @override
   Widget build(BuildContext context) {
-    List<PaymentItemObject> paymentItemObjects = [];
-    retrievePayments(paymentItemObjects);
-    print("GridListPayments: ${paymentItemObjects.length}");
-    return ListView(
-      children: [
-        for (var paymentItemObject in paymentItemObjects)
-          PaymentCard(paymentItemObject: paymentItemObject),
-      ],
+    return FutureBuilder(
+      future: retrievePayments(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Container(
+              width: 15,
+              height: 15,
+              child: CircularProgressIndicator()); // or any loading indicator
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          List<PaymentItemObject>? paymentItemObjects = snapshot.data;
+          return ListView(
+            children: [
+              for (var paymentItemObject in paymentItemObjects!)
+                PaymentCard(paymentItemObject: paymentItemObject),
+            ],
+          );
+        }
+      },
     );
   }
 }
