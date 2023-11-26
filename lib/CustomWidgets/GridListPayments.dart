@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../Model/PaymentItemObject.dart';
-import 'ModalBottomSheet/ModalBottomSheetCustom.dart';
 import 'PaymentCard.dart';
 
 class GridListPayments extends StatelessWidget {
@@ -12,11 +11,13 @@ class GridListPayments extends StatelessWidget {
     List<PaymentItemObject> paymentItemObjects = [];
     downloadedData.docs.forEach((element) {
       paymentItemObjects.add(PaymentItemObject(
+        id: element.reference,
         title: element.data()['title'],
         price: element.data()['price'],
         description: element.data()['description'],
         date: element.data()['date'],
         category: element.data()['category'],
+        createdOn: DateTime.parse(element.data()['createdOn']),
       ));
     });
     print("Elements saved: ${paymentItemObjects.length}");
@@ -32,6 +33,7 @@ class GridListPayments extends StatelessWidget {
           return Center(
               child: CircularProgressIndicator()); // or any loading indicator
         } else if (snapshot.hasError) {
+          print(snapshot.error);
           return Text('Connection ERROR');
         } else {
           List<PaymentItemObject>? paymentItemObjects = snapshot.data;

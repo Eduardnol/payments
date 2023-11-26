@@ -12,14 +12,17 @@ class PaymentItem extends StatelessWidget {
     required this.paymentItemObject,
   });
   savePayment() {
-    FirebaseFirestore.instance.collection('payments').add({
-      'title': paymentItemObject.title,
-      'price': paymentItemObject.price,
-      'description': paymentItemObject.description,
-      'date': paymentItemObject.date,
-      'category': paymentItemObject.category,
-      'createdOn': DateTime.now().toString(),
-    });
+    FirebaseFirestore.instance
+        .collection('payments')
+        .doc(paymentItemObject.id.id)
+        .update(({
+          'title': paymentItemObject.title,
+          'price': paymentItemObject.price,
+          'description': paymentItemObject.description,
+          'date': paymentItemObject.date,
+          'category': paymentItemObject.category,
+          'createdOn': paymentItemObject.createdOn.toString(),
+        }));
   }
 
   @override
@@ -78,6 +81,10 @@ class PaymentItem extends StatelessWidget {
                     title: "Date",
                     paymentItemObject: paymentItemObject,
                     icon: Icons.calendar_today),
+                PaymentRowItem(
+                    title: "Id",
+                    paymentItemObject: paymentItemObject,
+                    icon: Icons.category),
               ],
             ),
           ),
@@ -110,6 +117,8 @@ class PaymentRowItem extends StatelessWidget {
       value = paymentItemObject.description;
     } else if (title == "Date") {
       value = paymentItemObject.date;
+    } else if (title == "Id") {
+      value = paymentItemObject.id.id;
     }
 
     return Column(

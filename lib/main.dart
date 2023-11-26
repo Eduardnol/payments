@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -92,27 +93,31 @@ class MyHomePage extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).colorScheme.primary,
-        onPressed: () {
-          createItemFromModalBottomSheetDialog(context);
+        onPressed: () async {
+          await createItemFromModalBottomSheetDialog(context);
         },
         child: Icon(Icons.add),
       ),
     );
   }
 
-  void createItemFromModalBottomSheetDialog(BuildContext context) {
+  Future<void> createItemFromModalBottomSheetDialog(
+      BuildContext context) async {
+    final paymentItemObject = PaymentItemObject(
+      id: await FirebaseFirestore.instance.collection('payments').doc(),
+      date: "2021-05-01",
+      title: "Hello World",
+      category: "Food",
+      price: "10.00",
+      description: 'DESC',
+      createdOn: DateTime.now(),
+    );
+
     showModalBottomSheet(
       context: context,
       backgroundColor: Theme.of(context).colorScheme.secondary,
       builder: (BuildContext context) {
-        return ModalBottomSheetCustom(
-            paymentItemObject: PaymentItemObject(
-          date: "2021-05-01",
-          title: "Hello World",
-          category: "Food",
-          price: "10.00",
-          description: 'DESC',
-        ));
+        return ModalBottomSheetCustom(paymentItemObject: paymentItemObject);
       },
     );
   }

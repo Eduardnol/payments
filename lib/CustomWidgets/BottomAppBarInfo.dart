@@ -4,7 +4,6 @@ class BottomAppBarInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    final total = 9.9;
     return BottomAppBar(
       shape: AutomaticNotchedShape(
         RoundedRectangleBorder(
