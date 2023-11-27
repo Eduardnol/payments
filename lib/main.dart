@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:payments/CustomWidgets/BottomAppBarInfo.dart';
-import 'package:payments/CustomWidgets/ModalBottomSheet/ModalBottomSheetCustom.dart';
+import 'package:payments/CustomWidgets/ModalBottomSheet/FullScreenDialogPayment.dart';
 import 'Model/PaymentItemObject.dart';
 import 'firebase_options.dart';
 import 'CustomWidgets/GridListPayments.dart';
@@ -113,9 +113,9 @@ class MyHomePage extends StatelessWidget {
       createdOn: DateTime.now(),
     );
 
-    showModalBottomSheet(
+    showDialog(
       context: context,
-      backgroundColor: Theme.of(context).colorScheme.secondary,
+      barrierColor: Theme.of(context).colorScheme.primary,
       builder: (BuildContext context) {
         return ModalBottomSheetCustom(paymentItemObject: paymentItemObject);
       },

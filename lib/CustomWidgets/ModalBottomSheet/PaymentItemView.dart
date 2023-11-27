@@ -11,19 +11,6 @@ class PaymentItem extends StatelessWidget {
     super.key,
     required this.paymentItemObject,
   });
-  savePayment() {
-    FirebaseFirestore.instance
-        .collection('payments')
-        .doc(paymentItemObject.id.id)
-        .update(({
-          'title': paymentItemObject.title,
-          'price': paymentItemObject.price,
-          'description': paymentItemObject.description,
-          'date': paymentItemObject.date,
-          'category': paymentItemObject.category,
-          'createdOn': paymentItemObject.createdOn.toString(),
-        }));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,33 +20,6 @@ class PaymentItem extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(
-            flex: 1,
-            child: Row(
-              children: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text("Cancel",
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            color: Theme.of(context).colorScheme.error,
-                          )),
-                ),
-                Spacer(),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    savePayment();
-                  },
-                  child: Text("Save",
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            color: Theme.of(context).colorScheme.scrim,
-                          )),
-                ),
-              ],
-            ),
-          ),
           Expanded(
             flex: 9,
             child: Column(
