@@ -11,21 +11,39 @@ class ModalBottomSheetCustom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Payment Details"),
-        actions: [
-          IconButton(
+        appBar: AppBar(
+          title: Text("Payment Details"),
+          actions: [
+            IconButton(
+              onPressed: () {
+                savePayment();
+                Navigator.of(context).pop();
+              },
+              icon: Icon(Icons.save),
+            ),
+          ],
+          leading: IconButton(
             onPressed: () {
-              savePayment();
-              Navigator.of(context).pop();
+              askForDiscardConfirmation(context);
             },
-            icon: Icon(Icons.save),
+            icon: Icon(Icons.close),
           ),
-        ],
-      ),
-      backgroundColor: Theme.of(context).colorScheme.scrim,
-      body: PaymentItem(paymentItemObject: paymentItemObject),
-    );
+        ),
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        body: PaymentItem(paymentItemObject: paymentItemObject),
+        bottomNavigationBar: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Theme.of(context).colorScheme.errorContainer,
+          ),
+          onPressed: () {
+            askForDeleteConfirmation(context);
+          },
+          child: Text(
+            "Delete",
+            style: TextStyle(
+                color: Theme.of(context).colorScheme.onErrorContainer),
+          ),
+        ));
   }
 
   savePayment() {
@@ -40,5 +58,89 @@ class ModalBottomSheetCustom extends StatelessWidget {
           'category': paymentItemObject.category,
           'createdOn': paymentItemObject.createdOn.toString(),
         }));
+  }
+
+  deletePayment() {
+    FirebaseFirestore.instance
+        .collection('payments')
+        .doc(paymentItemObject.id.id)
+        .delete();
+  }
+
+  askForDeleteConfirmation(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        title: Text("Delete payment?",
+            style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
+        content: Text("Are you sure you want to delete this payment?",
+            style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text(
+              "Cancel",
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimaryContainer),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              deletePayment();
+              Navigator.of(context).pop();
+            },
+            child: Text(
+              "Delete",
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimaryContainer),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  askForDiscardConfirmation(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        title: Text(
+          "Discard changes?",
+          style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+        ),
+        content: Text(
+          "Are you sure you want to discard changes?",
+          style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text(
+              "Cancel",
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimaryContainer),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).pop();
+            },
+            child: Text(
+              "Discard",
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimaryContainer),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

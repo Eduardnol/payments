@@ -118,7 +118,7 @@ class ValueName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       onChanged: (value) {
         if (title == "Title") {
           paymentItemObject.title = value;
@@ -131,13 +131,14 @@ class ValueName extends StatelessWidget {
         }
       },
       decoration: InputDecoration(
+        border: OutlineInputBorder(),
         labelText: title,
         labelStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-              color: Theme.of(context).colorScheme.onSecondary,
+              color: Theme.of(context).colorScheme.onSurface,
             ),
       ),
       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-            color: Theme.of(context).colorScheme.onSecondary,
+            color: Theme.of(context).colorScheme.onSurface,
           ),
       controller: TextEditingController(text: value),
     );
@@ -158,11 +159,11 @@ class TagName extends StatelessWidget {
       children: [
         Icon(
           Icons.title,
-          color: Theme.of(context).colorScheme.onSecondary,
+          color: Theme.of(context).colorScheme.onSurface,
         ),
         Text(title,
             style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  color: Theme.of(context).colorScheme.onSecondary,
+                  color: Theme.of(context).colorScheme.onSurface,
                   fontWeight: FontWeight.bold,
                 )),
       ],
