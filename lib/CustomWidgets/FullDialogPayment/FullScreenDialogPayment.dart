@@ -18,8 +18,8 @@ class ModalBottomSheetCustom extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () {
-                savePayment();
-                Navigator.of(context).pop();
+              savePayment(context);
+              Navigator.of(context).pop();
               },
               icon: Icon(Icons.save),
             ),
@@ -53,7 +53,7 @@ class ModalBottomSheetCustom extends StatelessWidget {
     );
   }
 
-  savePayment() {
+  savePayment(BuildContext context) {
     FirebaseFirestore.instance
         .collection('payments')
         .doc(paymentItemObject.id.id)
@@ -65,6 +65,9 @@ class ModalBottomSheetCustom extends StatelessWidget {
           'category': paymentItemObject.category,
           'createdOn': paymentItemObject.createdOn.toString(),
         }));
+
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text("Saved!")));
   }
 
   deletePayment() {
