@@ -33,8 +33,14 @@ class MyApp extends StatelessWidget {
       ),
       home: MyHomePage(title: "Hello World Flutter Application"),
       title: 'Payments',
-      darkTheme: ThemeData.dark(),
-      // standard dark theme
+      darkTheme: ThemeData(
+        colorSchemeSeed: Colors.blueGrey,
+        brightness: Brightness.dark,
+        textTheme: GoogleFonts.montserratTextTheme(
+          Theme.of(context).textTheme,
+        ),
+        useMaterial3: true,
+      ),
       themeMode: ThemeMode.system, // device controls theme
     );
   }
