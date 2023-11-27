@@ -29,9 +29,11 @@ class ModalBottomSheetCustom extends StatelessWidget {
             icon: Icon(Icons.close),
           ),
         ),
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        body: PaymentItem(paymentItemObject: paymentItemObject),
-        bottomNavigationBar: ElevatedButton(
+      backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+      body: PaymentItem(paymentItemObject: paymentItemObject),
+      bottomNavigationBar: BottomAppBar(
+        color: Theme.of(context).colorScheme.surfaceVariant,
+        child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             backgroundColor: Theme.of(context).colorScheme.errorContainer,
           ),
@@ -43,7 +45,9 @@ class ModalBottomSheetCustom extends StatelessWidget {
             style: TextStyle(
                 color: Theme.of(context).colorScheme.onErrorContainer),
           ),
-        ));
+        ),
+      ),
+    );
   }
 
   savePayment() {

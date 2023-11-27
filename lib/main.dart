@@ -76,17 +76,7 @@ class MyHomePage extends StatelessWidget {
             ),
             stretch: true,
           ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                Container(
-                  color: Colors.transparent,
-                  height: MediaQuery.of(context).size.height,
-                  child: GridListPayments(),
-                ),
-              ],
-            ),
-          ),
+          GridListPayments(),
         ],
       ),
       bottomNavigationBar: BottomAppBarInfo(),

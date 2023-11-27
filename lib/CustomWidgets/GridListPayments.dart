@@ -30,18 +30,19 @@ class GridListPayments extends StatelessWidget {
       future: retrievePayments(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
-              child: CircularProgressIndicator()); // or any loading indicator
+          return SliverToBoxAdapter(
+            child: Center(child: CircularProgressIndicator()),
+          ); // or any loading indicator
         } else if (snapshot.hasError) {
           print(snapshot.error);
-          return Text('Connection ERROR');
+          return SliverToBoxAdapter(child: Text('Connection ERROR'));
         } else {
           List<PaymentItemObject>? paymentItemObjects = snapshot.data;
-          return ListView(
-            children: [
+          return SliverList(
+            delegate: SliverChildListDelegate([
               for (var paymentItemObject in paymentItemObjects!)
                 PaymentCard(paymentItemObject: paymentItemObject),
-            ],
+            ]),
           );
         }
       },
