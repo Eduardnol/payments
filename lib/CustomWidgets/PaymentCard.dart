@@ -87,6 +87,7 @@ class PaymentCard extends StatelessWidget {
   void showItemFromModalBottomSheetDialog(BuildContext context) {
     showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return ModalBottomSheetCustom(paymentItemObject: paymentItemObject);
       },

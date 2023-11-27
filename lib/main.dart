@@ -114,6 +114,7 @@ class MyHomePage extends StatelessWidget {
 
     showDialog(
       context: context,
+      barrierDismissible: false,
       barrierColor: Theme.of(context).colorScheme.primary,
       builder: (BuildContext context) {
         return ModalBottomSheetCustom(paymentItemObject: paymentItemObject);
