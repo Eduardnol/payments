@@ -12,7 +12,9 @@ class ModalBottomSheetCustom extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Payment Details"),
+        backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+        elevation: 0,
+        title: Text("Payment Details"),
           actions: [
             IconButton(
               onPressed: () {
