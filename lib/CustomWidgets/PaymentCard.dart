@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../Model/PaymentItemObject.dart';
-import 'ModalBottomSheet/FullScreenDialogPayment.dart';
+import 'FullDialogPayment/FullScreenDialogPayment.dart';
 
 class PaymentCard extends StatelessWidget {
   final PaymentItemObject paymentItemObject;
