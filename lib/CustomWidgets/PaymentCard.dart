@@ -87,7 +87,6 @@ class PaymentCard extends StatelessWidget {
   void showItemFromModalBottomSheetDialog(BuildContext context) {
     showDialog(
       context: context,
-      barrierColor: Theme.of(context).colorScheme.primary,
       builder: (BuildContext context) {
         return ModalBottomSheetCustom(paymentItemObject: paymentItemObject);
       },
