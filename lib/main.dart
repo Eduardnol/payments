@@ -59,6 +59,9 @@ class MyHomePage extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            onStretchTrigger: () async {
+              print("SliverAppBar onStretchTrigger");
+            },
             floating: true,
             pinned: true,
             snap: true,
