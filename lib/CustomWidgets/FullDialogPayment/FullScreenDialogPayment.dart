@@ -11,26 +11,26 @@ class ModalBottomSheetCustom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
+      appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
         elevation: 0,
         title: Text("Payment Details"),
-          actions: [
-            IconButton(
-              onPressed: () {
+        actions: [
+          IconButton(
+            onPressed: () {
               savePayment(context);
               Navigator.of(context).pop();
-              },
-              icon: Icon(Icons.save),
-            ),
-          ],
-          leading: IconButton(
-            onPressed: () {
-              askForDiscardConfirmation(context);
             },
-            icon: Icon(Icons.close),
+            icon: Icon(Icons.save),
           ),
+        ],
+        leading: IconButton(
+          onPressed: () {
+            askForDiscardConfirmation(context);
+          },
+          icon: Icon(Icons.close),
         ),
+      ),
       backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
       body: PaymentItem(paymentItemObject: paymentItemObject),
       bottomNavigationBar: BottomAppBar(

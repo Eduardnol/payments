@@ -112,11 +112,17 @@ class MyHomePage extends StatelessWidget {
       createdOn: DateTime.now(),
     );
 
-    showDialog(
+    showModalBottomSheet(
       context: context,
-      barrierDismissible: false,
+      isScrollControlled: true,
       builder: (BuildContext context) {
-        return ModalBottomSheetCustom(paymentItemObject: paymentItemObject);
+        return ClipRRect(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+          child: Container(
+            height: MediaQuery.of(context).size.height * 0.9,
+            child: ModalBottomSheetCustom(paymentItemObject: paymentItemObject),
+          ),
+        );
       },
     );
   }

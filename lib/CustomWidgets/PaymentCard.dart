@@ -88,19 +88,13 @@ class PaymentCard extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(40.0),
-      ),
       builder: (BuildContext context) {
-        return Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
+        return ClipRRect(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+          child: Container(
+            height: MediaQuery.of(context).size.height * 0.9,
+            child: ModalBottomSheetCustom(paymentItemObject: paymentItemObject),
           ),
-          height: MediaQuery.of(context).size.height * 0.9,
-          child: ModalBottomSheetCustom(paymentItemObject: paymentItemObject),
         );
       },
     );
