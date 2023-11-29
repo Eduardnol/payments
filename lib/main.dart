@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:payments/CustomWidgets/BottomAppBarInfo.dart';
-import 'package:payments/CustomWidgets/ModalBottomSheet/FullScreenDialogPayment.dart';
+import 'package:payments/CustomWidgets/FullDialogPayment/FullScreenDialogPayment.dart';
 import 'Model/PaymentItemObject.dart';
 import 'firebase_options.dart';
 import 'CustomWidgets/GridListPayments.dart';
@@ -22,7 +22,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Payments',
       theme: ThemeData(
         // This is the theme of your application.
         colorSchemeSeed: Colors.blueGrey,
@@ -33,6 +32,16 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: MyHomePage(title: "Hello World Flutter Application"),
+      title: 'Payments',
+      darkTheme: ThemeData(
+        colorSchemeSeed: Colors.blueGrey,
+        brightness: Brightness.dark,
+        textTheme: GoogleFonts.montserratTextTheme(
+          Theme.of(context).textTheme,
+        ),
+        useMaterial3: true,
+      ),
+      themeMode: ThemeMode.system, // device controls theme
     );
   }
 }
@@ -76,17 +85,7 @@ class MyHomePage extends StatelessWidget {
             ),
             stretch: true,
           ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                Container(
-                  color: Colors.transparent,
-                  height: MediaQuery.of(context).size.height,
-                  child: GridListPayments(),
-                ),
-              ],
-            ),
-          ),
+          GridListPayments(),
         ],
       ),
       bottomNavigationBar: BottomAppBarInfo(),
@@ -115,6 +114,7 @@ class MyHomePage extends StatelessWidget {
 
     showDialog(
       context: context,
+      barrierDismissible: false,
       barrierColor: Theme.of(context).colorScheme.primary,
       builder: (BuildContext context) {
         return ModalBottomSheetCustom(paymentItemObject: paymentItemObject);

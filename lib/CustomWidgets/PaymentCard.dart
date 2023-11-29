@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../Model/PaymentItemObject.dart';
-import 'ModalBottomSheet/FullScreenDialogPayment.dart';
+import 'FullDialogPayment/FullScreenDialogPayment.dart';
 
 class PaymentCard extends StatelessWidget {
   final PaymentItemObject paymentItemObject;
@@ -87,7 +87,7 @@ class PaymentCard extends StatelessWidget {
   void showItemFromModalBottomSheetDialog(BuildContext context) {
     showDialog(
       context: context,
-      barrierColor: Theme.of(context).colorScheme.primary,
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return ModalBottomSheetCustom(paymentItemObject: paymentItemObject);
       },

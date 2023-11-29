@@ -12,12 +12,14 @@ class ModalBottomSheetCustom extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Payment Details"),
+        backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+        elevation: 0,
+        title: Text("Payment Details"),
           actions: [
             IconButton(
               onPressed: () {
-                savePayment();
-                Navigator.of(context).pop();
+              savePayment(context);
+              Navigator.of(context).pop();
               },
               icon: Icon(Icons.save),
             ),
@@ -29,9 +31,12 @@ class ModalBottomSheetCustom extends StatelessWidget {
             icon: Icon(Icons.close),
           ),
         ),
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        body: PaymentItem(paymentItemObject: paymentItemObject),
-        bottomNavigationBar: ElevatedButton(
+      backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+      body: PaymentItem(paymentItemObject: paymentItemObject),
+      bottomNavigationBar: BottomAppBar(
+        elevation: 0,
+        color: Theme.of(context).colorScheme.surfaceVariant,
+        child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             backgroundColor: Theme.of(context).colorScheme.errorContainer,
           ),
@@ -43,10 +48,12 @@ class ModalBottomSheetCustom extends StatelessWidget {
             style: TextStyle(
                 color: Theme.of(context).colorScheme.onErrorContainer),
           ),
-        ));
+        ),
+      ),
+    );
   }
 
-  savePayment() {
+  savePayment(BuildContext context) {
     FirebaseFirestore.instance
         .collection('payments')
         .doc(paymentItemObject.id.id)
@@ -58,6 +65,9 @@ class ModalBottomSheetCustom extends StatelessWidget {
           'category': paymentItemObject.category,
           'createdOn': paymentItemObject.createdOn.toString(),
         }));
+
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text("Saved!")));
   }
 
   deletePayment() {
