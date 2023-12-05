@@ -12,17 +12,27 @@ class PaymentCard extends StatelessWidget {
   Widget build(BuildContext context) {
     print("PaymentCard: ${paymentItemObject.title}");
     return Card(
-      color: Theme.of(context).primaryColorLight,
+      color: Theme.of(context).colorScheme.secondaryContainer,
       child: ListTile(
         onTap: () {
           showItemFromModalBottomSheetDialog(context);
         },
-        title: Text(paymentItemObject.title),
-        subtitle: Text(paymentItemObject.date),
+        title: Text(
+          paymentItemObject.title,
+          style: TextStyle(
+              color: Theme.of(context).colorScheme.onSecondaryContainer),
+        ),
+        subtitle: Text(
+          paymentItemObject.date,
+          style: TextStyle(
+              color: Theme.of(context).colorScheme.onSecondaryContainer),
+        ),
         leading: CircleAvatar(
           child: Icon(Icons.attach_money),
         ),
-        trailing: Text(paymentItemObject.price),
+        trailing: Text(paymentItemObject.price,
+            style: TextStyle(
+                color: Theme.of(context).colorScheme.onSecondaryContainer)),
       ),
     );
   }
