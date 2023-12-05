@@ -11,7 +11,7 @@ class PaymentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print("PaymentCard: ${paymentItemObject.title}");
-    return Container(
+    return Card(
       color: Theme.of(context).primaryColorLight,
       child: ListTile(
         onTap: () {
