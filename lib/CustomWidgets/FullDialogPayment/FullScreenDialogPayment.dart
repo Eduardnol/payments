@@ -54,10 +54,10 @@ class ModalBottomSheetCustom extends StatelessWidget {
   }
 
   savePayment(BuildContext context) {
-    FirebaseFirestore.instance
+    Future<void> savedPayment = FirebaseFirestore.instance
         .collection('payments')
         .doc(paymentItemObject.id.id)
-        .update(({
+        .set(({
           'title': paymentItemObject.title,
           'price': paymentItemObject.price,
           'description': paymentItemObject.description,
@@ -66,8 +66,9 @@ class ModalBottomSheetCustom extends StatelessWidget {
           'createdOn': paymentItemObject.createdOn.toString(),
         }));
 
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text("Saved!")));
+    savedPayment.onError((error, stackTrace) => print(error));
+    savedPayment.whenComplete(() => ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text("Payment Updated!"))));
   }
 
   deletePayment() {

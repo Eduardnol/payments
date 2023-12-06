@@ -4,48 +4,61 @@ import 'package:flutter/material.dart';
 import '../Model/PaymentItemObject.dart';
 import 'PaymentCard.dart';
 
-class GridListPayments extends StatelessWidget {
-  Future<List<PaymentItemObject>> retrievePayments() async {
-    var downloadedData =
-        await FirebaseFirestore.instance.collection('payments').get();
-    List<PaymentItemObject> paymentItemObjects = [];
-    downloadedData.docs.forEach((element) {
-      paymentItemObjects.add(PaymentItemObject(
-        id: element.reference,
-        title: element.data()['title'],
-        price: element.data()['price'],
-        description: element.data()['description'],
-        date: element.data()['date'],
-        category: element.data()['category'],
-        createdOn: DateTime.parse(element.data()['createdOn']),
-      ));
+class GridListPayments extends StatefulWidget {
+  @override
+  State<GridListPayments> createState() => _GridListPaymentsState();
+}
+
+class _GridListPaymentsState extends State<GridListPayments> {
+  List<PaymentItemObject> paymentItemObjects = [];
+  bool _isLoadingData = true;
+
+  @override
+  initState() {
+    super.initState();
+    retrievePayments();
+  }
+
+  retrievePayments() async {
+    FirebaseFirestore.instance
+        .collection('payments')
+        .snapshots()
+        .listen((event) {
+      _isLoadingData = false;
+      paymentItemObjects.clear();
+
+      event.docs.forEach((element) {
+        paymentItemObjects.add(PaymentItemObject(
+          id: element.reference,
+          title: element.data()['title'],
+          price: element.data()['price'],
+          description: element.data()['description'],
+          date: element.data()['date'],
+          category: element.data()['category'],
+          createdOn: DateTime.parse(element.data()['createdOn']),
+        ));
+      });
+
+      paymentItemObjects.sort(
+          (a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
+
+      setState(() {});
     });
-    print("Elements saved: ${paymentItemObjects.length}");
-    return paymentItemObjects;
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: retrievePayments(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return SliverToBoxAdapter(
-            child: Center(child: CircularProgressIndicator()),
-          ); // or any loading indicator
-        } else if (snapshot.hasError) {
-          print(snapshot.error);
-          return SliverToBoxAdapter(child: Text('Connection ERROR'));
-        } else {
-          List<PaymentItemObject>? paymentItemObjects = snapshot.data;
-          return SliverList(
-            delegate: SliverChildListDelegate([
-              for (var paymentItemObject in paymentItemObjects!)
-                PaymentCard(paymentItemObject: paymentItemObject),
-            ]),
-          );
-        }
-      },
-    );
+    return _isLoadingData
+        ? SliverToBoxAdapter(
+            child: const Center(child: CircularProgressIndicator()))
+        : paymentItemObjects.isEmpty
+            ? const SliverToBoxAdapter(
+                child: Center(child: CircularProgressIndicator()))
+            : SliverList(
+                delegate: SliverChildListDelegate([
+                  for (var paymentItemObject in paymentItemObjects)
+                    PaymentCard(paymentItemObject: paymentItemObject),
+                ]),
+              );
   }
 }
