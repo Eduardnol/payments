@@ -111,7 +111,7 @@ class MyHomePage extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        //backgroundColor: Theme.of(context).colorScheme.primary,
         onPressed: () async {
           await createItemFromModalBottomSheetDialog(context);
         },
@@ -124,11 +124,11 @@ class MyHomePage extends StatelessWidget {
       BuildContext context) async {
     final paymentItemObject = PaymentItemObject(
       id: await FirebaseFirestore.instance.collection('payments').doc(),
-      date: "2021-05-01",
-      title: "Hello World",
-      category: "Food",
-      price: "10.00",
-      description: 'DESC',
+      date: "",
+      title: "",
+      category: "",
+      price: "",
+      description: '',
       createdOn: DateTime.now(),
     );
 

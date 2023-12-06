@@ -69,6 +69,7 @@ class PaymentRowItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var value = "";
+    var isEditable = true;
     if (title == "Title") {
       value = paymentItemObject.title;
     } else if (title == "Price") {
@@ -79,6 +80,7 @@ class PaymentRowItem extends StatelessWidget {
       value = paymentItemObject.date;
     } else if (title == "Id") {
       value = paymentItemObject.id.id;
+      isEditable = false;
     }
 
     return Column(
@@ -93,7 +95,8 @@ class PaymentRowItem extends StatelessWidget {
                   child: ValueName(
                       title: title,
                       paymentItemObject: paymentItemObject,
-                      value: value),
+                      value: value,
+                      isEditable: isEditable),
                   flex: 6),
             ],
           ),
@@ -110,11 +113,13 @@ class ValueName extends StatelessWidget {
     required this.title,
     required this.paymentItemObject,
     required this.value,
+    required this.isEditable,
   });
 
   final String title;
   final PaymentItemObject paymentItemObject;
   final String value;
+  final bool isEditable;
 
   @override
   Widget build(BuildContext context) {
@@ -131,6 +136,7 @@ class ValueName extends StatelessWidget {
         }
       },
       decoration: InputDecoration(
+        enabled: isEditable,
         border: OutlineInputBorder(),
         labelText: title,
         labelStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
