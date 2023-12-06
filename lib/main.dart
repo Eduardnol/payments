@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:payments/CustomWidgets/BottomAppBarInfo.dart';
 import 'package:payments/CustomWidgets/FullDialogPayment/FullScreenDialogPayment.dart';
 import 'Model/PaymentItemObject.dart';
+import 'Pages/LoginPage.dart';
 import 'firebase_options.dart';
 import 'CustomWidgets/GridListPayments.dart';
 
@@ -31,7 +33,15 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: MyHomePage(title: "Hello World Flutter Application"),
+      home: StreamBuilder<User?>(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return const MyHomePage(title: "Flutter App");
+            } else {
+              return const LoginPage();
+            }
+          }),
       title: 'Payments',
       darkTheme: ThemeData(
         colorSchemeSeed: Colors.blueGrey,
