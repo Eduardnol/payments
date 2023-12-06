@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import '../../Model/PaymentItemObject.dart';
+import '../../Model/PaymentObject.dart';
 import 'PaymentItemView.dart';
 
 class ModalBottomSheetCustom extends StatelessWidget {
   final PaymentItemObject paymentItemObject;
-
   const ModalBottomSheetCustom({super.key, required this.paymentItemObject});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

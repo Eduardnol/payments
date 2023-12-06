@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import '../Model/PaymentItemObject.dart';
-import 'PaymentCard.dart';
+import '../Model/PaymentObject.dart';
+import 'IndividualPaymentCard.dart';
 
 class GridListPayments extends StatefulWidget {
   @override

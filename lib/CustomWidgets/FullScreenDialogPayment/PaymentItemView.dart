@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import '../../Model/PaymentItemObject.dart';
+import '../../Model/PaymentObject.dart';
 
 class PaymentItem extends StatelessWidget {
   //list of payment components

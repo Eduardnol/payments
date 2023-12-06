@@ -3,12 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:payments/CustomWidgets/BottomAppBarInfo.dart';
-import 'package:payments/CustomWidgets/FullDialogPayment/FullScreenDialogPayment.dart';
-import 'Model/PaymentItemObject.dart';
+import 'package:payments/CustomWidgets/FullScreenDialogPayment/FullScreenDialogPayment.dart';
+import 'Model/PaymentObject.dart';
 import 'Pages/LoginPage.dart';
 import 'firebase_options.dart';
-import 'CustomWidgets/GridListPayments.dart';
+import 'CustomWidgets/ListViewPayments.dart';
 
 //TODO iOS firebase cloud messaging
 Future<void> main() async {
@@ -101,7 +100,9 @@ class MyHomePage extends StatelessWidget {
           GridListPayments(),
         ],
       ),
-      bottomNavigationBar: BottomAppBarInfo(),
+      bottomNavigationBar: BottomAppBar(
+        color: Theme.of(context).colorScheme.surfaceVariant,
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).colorScheme.primary,
