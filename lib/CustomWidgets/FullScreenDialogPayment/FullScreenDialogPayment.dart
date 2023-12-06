@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../Model/PaymentObject.dart';
+import '../../services/ProviderWidget.dart';
 import 'PaymentItemView.dart';
 
 class ModalBottomSheetCustom extends StatelessWidget {
@@ -53,8 +54,11 @@ class ModalBottomSheetCustom extends StatelessWidget {
     );
   }
 
-  savePayment(BuildContext context) {
+  savePayment(BuildContext context) async {
+    final uid = await Provider.of(context).auth.getCurrentUID();
     Future<void> savedPayment = FirebaseFirestore.instance
+        .collection('userData')
+        .doc(uid)
         .collection('payments')
         .doc(paymentItemObject.id.id)
         .set(({
@@ -71,8 +75,11 @@ class ModalBottomSheetCustom extends StatelessWidget {
         .showSnackBar(SnackBar(content: Text("Payment Updated!"))));
   }
 
-  deletePayment() {
+  deletePayment(BuildContext context) async {
+    final uid = await Provider.of(context).auth.getCurrentUID();
     FirebaseFirestore.instance
+        .collection('userData')
+        .doc(uid)
         .collection('payments')
         .doc(paymentItemObject.id.id)
         .delete();
@@ -101,7 +108,7 @@ class ModalBottomSheetCustom extends StatelessWidget {
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();
-              deletePayment();
+              deletePayment(context);
               Navigator.of(context).pop();
             },
             child: Text(

@@ -4,6 +4,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:payments/CustomWidgets/FullScreenDialogPayment/FullScreenDialogPayment.dart';
+import 'package:payments/services/AuthService.dart';
+import 'package:payments/services/ProviderWidget.dart';
 import 'Model/PaymentObject.dart';
 import 'Pages/LoginPage.dart';
 import 'firebase_options.dart';
@@ -22,35 +24,39 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        // This is the theme of your application.
-        colorSchemeSeed: Colors.blueGrey,
-        brightness: Brightness.light,
-        textTheme: GoogleFonts.montserratTextTheme(
-          Theme.of(context).textTheme,
+    return Provider(
+      key: null,
+      auth: AuthService(),
+      child: MaterialApp(
+        theme: ThemeData(
+          // This is the theme of your application.
+          colorSchemeSeed: Colors.blueGrey,
+          brightness: Brightness.light,
+          textTheme: GoogleFonts.montserratTextTheme(
+            Theme.of(context).textTheme,
+          ),
+          useMaterial3: true,
         ),
-        useMaterial3: true,
-      ),
-      home: StreamBuilder<User?>(
-          stream: FirebaseAuth.instance.authStateChanges(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return const MyHomePage(title: "Flutter App");
-            } else {
-              return const LoginPage();
-            }
-          }),
-      title: 'Payments',
-      darkTheme: ThemeData(
-        colorSchemeSeed: Colors.blueGrey,
-        brightness: Brightness.dark,
-        textTheme: GoogleFonts.montserratTextTheme(
-          Theme.of(context).textTheme,
+        home: StreamBuilder<User?>(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return const MyHomePage(title: "Flutter App");
+              } else {
+                return const LoginPage();
+              }
+            }),
+        title: 'Payments',
+        darkTheme: ThemeData(
+          colorSchemeSeed: Colors.blueGrey,
+          brightness: Brightness.dark,
+          textTheme: GoogleFonts.montserratTextTheme(
+            Theme.of(context).textTheme,
+          ),
+          useMaterial3: true,
         ),
-        useMaterial3: true,
+        themeMode: ThemeMode.system, // device controls theme
       ),
-      themeMode: ThemeMode.system, // device controls theme
     );
   }
 }

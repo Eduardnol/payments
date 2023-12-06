@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../Model/PaymentObject.dart';
+import '../services/ProviderWidget.dart';
 import 'IndividualPaymentCard.dart';
 
 class GridListPayments extends StatefulWidget {
@@ -14,19 +15,23 @@ class _GridListPaymentsState extends State<GridListPayments> {
   bool _isLoadingData = true;
 
   @override
-  initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     retrievePayments();
   }
 
   retrievePayments() async {
+    final uid = await Provider.of(context).auth.getCurrentUID();
+    //TODO get only payments of current user
     FirebaseFirestore.instance
+        .collection('userData')
+        .doc(uid)
         .collection('payments')
         .snapshots()
         .listen((event) {
       _isLoadingData = false;
-      paymentItemObjects.clear();
 
+      paymentItemObjects.clear();
       event.docs.forEach((element) {
         paymentItemObjects.add(PaymentItemObject(
           id: element.reference,
