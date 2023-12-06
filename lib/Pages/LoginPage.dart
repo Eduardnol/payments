@@ -127,7 +127,6 @@ class LoginPageState extends State<LoginPage> {
   }
 
   void _handleForgotPassword() {
-    String username = _usernameController.text;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
