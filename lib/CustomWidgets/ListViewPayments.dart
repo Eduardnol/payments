@@ -57,8 +57,12 @@ class _GridListPaymentsState extends State<GridListPayments> {
         ? SliverToBoxAdapter(
             child: const Center(child: CircularProgressIndicator()))
         : paymentItemObjects.isEmpty
-            ? const SliverToBoxAdapter(
-                child: Center(child: CircularProgressIndicator()))
+            ? SliverToBoxAdapter(
+                child: Center(
+                child: Text("No payments added yet!",
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface)),
+              ))
             : SliverList(
                 delegate: SliverChildListDelegate([
                   for (var paymentItemObject in paymentItemObjects)
