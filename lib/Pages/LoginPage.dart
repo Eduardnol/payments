@@ -64,6 +64,7 @@ class LoginPageState extends State<LoginPage> {
                 obscureText: true,
                 decoration: const InputDecoration(
                   labelText: 'Password',
+                  hintText: 'Enter your password',
                   border: OutlineInputBorder(),
                   prefixIcon: Icon(Icons.lock),
                 ),
@@ -91,6 +92,12 @@ class LoginPageState extends State<LoginPage> {
                 },
                 child: const Text('Register'),
               ),
+              const SizedBox(height: 20.0),
+              TextButton(
+                  onPressed: () {
+                    _handleForgotPassword();
+                  },
+                  child: Text('Forgot Password?')),
             ],
           ),
         ),
@@ -117,5 +124,58 @@ class LoginPageState extends State<LoginPage> {
         ),
       );
     });
+  }
+
+  void _handleForgotPassword() {
+    String username = _usernameController.text;
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(
+          'Forgot Password',
+          style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+        ),
+        content: TextFormField(
+          style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+          controller: _usernameController,
+          decoration: const InputDecoration(
+            labelText: 'Mail',
+            hintText: 'Enter your email',
+            border: OutlineInputBorder(),
+            prefixIcon: Icon(Icons.mail),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              _sendPasswordResetEmail(_usernameController.text);
+              Navigator.of(context).pop();
+            },
+            child: const Text('Send'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  _sendPasswordResetEmail(String email) {
+    FirebaseAuth.instance
+        .sendPasswordResetEmail(email: email)
+        .then((value) => ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Password Reset Email Sent'),
+              ),
+            ))
+        .catchError((error) => ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(error.code),
+              ),
+            ));
   }
 }
