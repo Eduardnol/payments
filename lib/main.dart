@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return const MyHomePage(title: "Flutter App");
+                return const MyHomePage(title: "Payments App");
               } else {
                 return const LoginPage();
               }
@@ -84,10 +84,10 @@ class MyHomePage extends StatelessWidget {
             expandedHeight: 200.0,
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: false,
-              title: Text("Hello There!",
+              title: Text("Your Payments",
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.onPrimary,
+                        color: Colors.white,
                       )),
               stretchModes: <StretchMode>[
                 StretchMode.zoomBackground,
@@ -124,7 +124,7 @@ class MyHomePage extends StatelessWidget {
       BuildContext context) async {
     final paymentItemObject = PaymentItemObject(
       id: await FirebaseFirestore.instance.collection('payments').doc(),
-      date: "",
+      date: DateTime.now(),
       title: "",
       category: "",
       price: "",

@@ -17,12 +17,13 @@ class ModalBottomSheetCustom extends StatelessWidget {
         elevation: 0,
         title: Text("Payment Details"),
         actions: [
-          IconButton(
+          TextButton.icon(
             onPressed: () {
               savePayment(context);
               Navigator.of(context).pop();
             },
             icon: Icon(Icons.save),
+            label: Text("Save"),
           ),
         ],
         leading: IconButton(

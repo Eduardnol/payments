@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:intl/intl.dart';
 import '../../Model/PaymentObject.dart';
 
 class PaymentItem extends StatelessWidget {
@@ -78,7 +78,7 @@ class PaymentRowItem extends StatelessWidget {
     } else if (title == "Description") {
       value = paymentItemObject.description;
     } else if (title == "Date") {
-      value = paymentItemObject.date;
+      value = "null";
     } else if (title == "Id") {
       value = paymentItemObject.id.id;
       isEditable = false;
@@ -132,6 +132,7 @@ class ValueName extends StatelessWidget {
     var maxLines = 1;
     var keyboardType = TextInputType.text;
     var inputFormatters = <TextInputFormatter>[];
+    var isDate = false;
     if (title == "Description") {
       maxLines = 5;
     }
@@ -141,34 +142,57 @@ class ValueName extends StatelessWidget {
         FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
       ];
     }
-    return TextFormField(
-      onChanged: (value) {
-        if (title == "Title") {
-          paymentItemObject.title = value;
-        } else if (title == "Price") {
-          paymentItemObject.price = value;
-        } else if (title == "Description") {
-          paymentItemObject.description = value;
-        } else if (title == "Date") {
-          paymentItemObject.date = value;
-        }
-      },
-      keyboardType: keyboardType,
-      inputFormatters: inputFormatters,
-      maxLines: maxLines,
-      decoration: InputDecoration(
-        enabled: isEditable,
-        border: OutlineInputBorder(),
-        labelText: title,
-        labelStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+    if (title == "Date") {
+      isDate = true;
+    }
+    if (isDate) {
+      var myFormat = new DateFormat('dd-MM-yyyy');
+      return TextButton(
+        onPressed: () {
+          processDateModalBottomSheet(context);
+        },
+        child: Text('${myFormat.format(paymentItemObject.date)}'),
+      );
+    } else {
+      return TextFormField(
+        onChanged: (value) {
+          if (title == "Title") {
+            paymentItemObject.title = value;
+          } else if (title == "Price") {
+            paymentItemObject.price = value;
+          } else if (title == "Description") {
+            paymentItemObject.description = value;
+          }
+        },
+        keyboardType: keyboardType,
+        inputFormatters: inputFormatters,
+        maxLines: maxLines,
+        decoration: InputDecoration(
+          enabled: isEditable,
+          border: OutlineInputBorder(),
+          labelText: title,
+          labelStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+        ),
+        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
               color: Theme.of(context).colorScheme.onSurface,
             ),
-      ),
-      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-            color: Theme.of(context).colorScheme.onSurface,
-          ),
-      controller: TextEditingController(text: value),
+        controller: TextEditingController(text: value),
+      );
+    }
+  }
+
+  processDateModalBottomSheet(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2015, 8),
+      lastDate: DateTime(2101),
     );
+    if (picked != null) {
+      paymentItemObject.date = picked;
+    }
   }
 }
 

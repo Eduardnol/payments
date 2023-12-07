@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
 import '../Model/PaymentObject.dart';
 import 'FullScreenDialogPayment/FullScreenDialogPayment.dart';
 
@@ -10,6 +10,7 @@ class PaymentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var myFormat = new DateFormat('dd-MM-yyyy');
     print("PaymentCard: ${paymentItemObject.title}");
     return Card(
       color: Theme.of(context).colorScheme.secondaryContainer,
@@ -23,7 +24,7 @@ class PaymentCard extends StatelessWidget {
               color: Theme.of(context).colorScheme.onSecondaryContainer),
         ),
         subtitle: Text(
-          paymentItemObject.date,
+          '${myFormat.format(paymentItemObject.date)}',
           style: TextStyle(
               color: Theme.of(context).colorScheme.onSecondaryContainer),
         ),

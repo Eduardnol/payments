@@ -38,7 +38,7 @@ class _GridListPaymentsState extends State<GridListPayments> {
           title: element.data()['title'],
           price: element.data()['price'],
           description: element.data()['description'],
-          date: element.data()['date'],
+          date: element.data()['date'].toDate(),
           category: element.data()['category'],
           createdOn: DateTime.parse(element.data()['createdOn']),
         ));

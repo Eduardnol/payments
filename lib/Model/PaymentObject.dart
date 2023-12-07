@@ -4,7 +4,7 @@ class PaymentItemObject {
   String title;
   String price;
   String description;
-  String date;
+  DateTime date;
   String category;
   DocumentReference id;
   DateTime createdOn;
