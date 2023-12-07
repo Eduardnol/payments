@@ -12,6 +12,7 @@ class ModalBottomSheetCustom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
         elevation: 0,
@@ -34,7 +35,8 @@ class ModalBottomSheetCustom extends StatelessWidget {
         ),
       ),
       backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
-      body: PaymentItem(paymentItemObject: paymentItemObject),
+      body: SingleChildScrollView(
+          child: PaymentItem(paymentItemObject: paymentItemObject)),
       bottomNavigationBar: BottomAppBar(
         elevation: 0,
         color: Theme.of(context).colorScheme.surfaceVariant,

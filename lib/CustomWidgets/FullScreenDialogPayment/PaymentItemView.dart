@@ -21,34 +21,27 @@ class PaymentItem extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(
-            flex: 9,
-            child: Column(
-              children: [
-                PaymentRowItem(
-                    title: "Id",
-                    paymentItemObject: paymentItemObject,
-                    icon: Icons.key),
-                PaymentRowItem(
-                    title: "Title",
-                    paymentItemObject: paymentItemObject,
-                    icon: Icons.title),
-                PaymentRowItem(
-                  title: "Price",
-                  icon: Icons.attach_money,
-                  paymentItemObject: paymentItemObject,
-                ),
-                PaymentRowItem(
-                    title: "Date",
-                    paymentItemObject: paymentItemObject,
-                    icon: Icons.calendar_today),
-                PaymentRowItem(
-                    title: "Description",
-                    paymentItemObject: paymentItemObject,
-                    icon: Icons.description),
-              ],
-            ),
+          PaymentRowItem(
+              title: "Id",
+              paymentItemObject: paymentItemObject,
+              icon: Icons.key),
+          PaymentRowItem(
+              title: "Title",
+              paymentItemObject: paymentItemObject,
+              icon: Icons.title),
+          PaymentRowItem(
+            title: "Price",
+            icon: Icons.attach_money,
+            paymentItemObject: paymentItemObject,
           ),
+          PaymentRowItem(
+              title: "Date",
+              paymentItemObject: paymentItemObject,
+              icon: Icons.calendar_today),
+          PaymentRowItem(
+              title: "Description",
+              paymentItemObject: paymentItemObject,
+              icon: Icons.description),
         ],
       ),
     );
