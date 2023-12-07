@@ -38,16 +38,16 @@ class LoginPageState extends State<LoginPage> {
                     TextStyle(color: Theme.of(context).colorScheme.onSurface),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Please enter a username';
+                    return 'Please enter your email';
                   }
                   return null;
                 },
                 controller: _usernameController,
                 decoration: const InputDecoration(
-                  labelText: 'Username',
-                  hintText: 'Enter your username',
+                  labelText: 'Email',
+                  hintText: 'Enter your email',
                   border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.person),
+                  prefixIcon: Icon(Icons.mail),
                 ),
               ),
               const SizedBox(height: 20.0),

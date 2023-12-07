@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../Model/PaymentObject.dart';
 
@@ -25,6 +26,10 @@ class PaymentItem extends StatelessWidget {
             child: Column(
               children: [
                 PaymentRowItem(
+                    title: "Id",
+                    paymentItemObject: paymentItemObject,
+                    icon: Icons.key),
+                PaymentRowItem(
                     title: "Title",
                     paymentItemObject: paymentItemObject,
                     icon: Icons.title),
@@ -34,17 +39,13 @@ class PaymentItem extends StatelessWidget {
                   paymentItemObject: paymentItemObject,
                 ),
                 PaymentRowItem(
-                    title: "Description",
-                    paymentItemObject: paymentItemObject,
-                    icon: Icons.description),
-                PaymentRowItem(
                     title: "Date",
                     paymentItemObject: paymentItemObject,
                     icon: Icons.calendar_today),
                 PaymentRowItem(
-                    title: "Id",
+                    title: "Description",
                     paymentItemObject: paymentItemObject,
-                    icon: Icons.category),
+                    icon: Icons.description),
               ],
             ),
           ),
@@ -90,7 +91,12 @@ class PaymentRowItem extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(child: TagName(title: title), flex: 4),
+              Expanded(
+                  child: TagName(
+                    title: title,
+                    icon: icon,
+                  ),
+                  flex: 4),
               Expanded(
                   child: ValueName(
                       title: title,
@@ -123,6 +129,18 @@ class ValueName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var maxLines = 1;
+    var keyboardType = TextInputType.text;
+    var inputFormatters = <TextInputFormatter>[];
+    if (title == "Description") {
+      maxLines = 5;
+    }
+    if (title == "Price") {
+      keyboardType = TextInputType.number;
+      inputFormatters = <TextInputFormatter>[
+        FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+      ];
+    }
     return TextFormField(
       onChanged: (value) {
         if (title == "Title") {
@@ -135,6 +153,9 @@ class ValueName extends StatelessWidget {
           paymentItemObject.date = value;
         }
       },
+      keyboardType: keyboardType,
+      inputFormatters: inputFormatters,
+      maxLines: maxLines,
       decoration: InputDecoration(
         enabled: isEditable,
         border: OutlineInputBorder(),
@@ -155,16 +176,18 @@ class TagName extends StatelessWidget {
   const TagName({
     super.key,
     required this.title,
+    required this.icon,
   });
 
   final String title;
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Icon(
-          Icons.title,
+          icon,
           color: Theme.of(context).colorScheme.onSurface,
         ),
         Text(title,
