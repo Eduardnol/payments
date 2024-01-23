@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:payments/CustomWidgets/FullScreenDialogPayment/FullScreenDialogPayment.dart';
+import 'package:payments/CustomWidgets/FullScreenDialogPayment/ModalBottomSheetPayment.dart';
 import 'package:payments/services/AuthService.dart';
 import 'package:payments/services/ProviderWidget.dart';
 import 'Model/PaymentObject.dart';
@@ -96,8 +96,7 @@ class MyHomePage extends StatelessWidget {
               ],
               background: FittedBox(
                 fit: BoxFit.fitWidth,
-                child: Image.network(
-                    "https://images.unsplash.com/photo-1619970291267-0e61f239c59e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"),
+                child: Image.asset('images/main_screen.jpg'),
               ),
               collapseMode: CollapseMode.pin,
             ),

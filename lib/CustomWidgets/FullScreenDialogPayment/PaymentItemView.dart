@@ -3,11 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import '../../Model/PaymentObject.dart';
 
-class PaymentItem extends StatelessWidget {
+class PaymentItemView extends StatelessWidget {
   //list of payment components
   final PaymentItemObject paymentItemObject;
 
-  const PaymentItem({
+  const PaymentItemView({
     super.key,
     required this.paymentItemObject,
   });
@@ -20,10 +20,6 @@ class PaymentItem extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          PaymentRowItem(
-              title: "Id",
-              paymentItemObject: paymentItemObject,
-              icon: Icons.key),
           PaymentRowItem(
               title: "Title",
               paymentItemObject: paymentItemObject,

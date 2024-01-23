@@ -36,7 +36,7 @@ class ModalBottomSheetCustom extends StatelessWidget {
       ),
       backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
       body: SingleChildScrollView(
-          child: PaymentItem(paymentItemObject: paymentItemObject)),
+          child: PaymentItemView(paymentItemObject: paymentItemObject)),
       bottomNavigationBar: BottomAppBar(
         elevation: 0,
         color: Theme.of(context).colorScheme.surfaceVariant,
