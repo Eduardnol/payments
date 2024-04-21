@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PaymentItemObject {
   String title;
-  String price;
+  double price;
   String description;
   DateTime date;
   String category;
