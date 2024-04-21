@@ -59,7 +59,7 @@ class ModalBottomSheetCustom extends StatelessWidget {
   }
 
   savePayment(BuildContext context) async {
-    final uid = await context.watch<AuthService>().getCurrentUID();
+    final uid = await context.read<AuthService>().getCurrentUID();
     Future<void> savedPayment = FirebaseFirestore.instance
         .collection('userData')
         .doc(uid)
