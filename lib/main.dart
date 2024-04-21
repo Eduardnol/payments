@@ -18,15 +18,7 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(ChangeNotifierProvider(
     create: (context) => PaymentProvider(
-      PaymentItemObject(
-        id: FirebaseFirestore.instance.collection('payments').doc(),
-        date: DateTime.now(),
-        title: "",
-        category: "",
-        price: 0.0,
-        description: '',
-        createdOn: DateTime.now(),
-      ),
+      PaymentItemObject.empty(),
     ),
     child: MyApp(),
   ));
@@ -132,16 +124,7 @@ class MyHomePage extends StatelessWidget {
 
   Future<void> createItemFromModalBottomSheetDialog(
       BuildContext context) async {
-    final paymentItemObject = PaymentItemObject(
-      id: await FirebaseFirestore.instance.collection('payments').doc(),
-      date: DateTime.now(),
-      title: "",
-      category: "",
-      price: 0.0,
-      description: '',
-      createdOn: DateTime.now(),
-    );
-
+    final paymentItemObject = PaymentItemObject.empty();
     context.read<PaymentProvider>().paymentItemObject = paymentItemObject;
 
     showModalBottomSheet(

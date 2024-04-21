@@ -18,4 +18,13 @@ class PaymentItemObject {
     required this.id,
     required this.createdOn,
   });
+
+  PaymentItemObject.empty()
+      : title = '',
+        price = 0.0,
+        description = '',
+        date = DateTime.now(),
+        category = '',
+        id = FirebaseFirestore.instance.collection('payments').doc(),
+        createdOn = DateTime.now();
 }
