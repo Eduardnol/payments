@@ -137,7 +137,7 @@ class MyHomePage extends StatelessWidget {
       date: DateTime.now(),
       title: "",
       category: "",
-      price: "",
+      price: 0.0,
       description: '',
       createdOn: DateTime.now(),
     );

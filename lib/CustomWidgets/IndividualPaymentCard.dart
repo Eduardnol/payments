@@ -31,7 +31,7 @@ class PaymentCard extends StatelessWidget {
         leading: CircleAvatar(
           child: Icon(Icons.attach_money),
         ),
-        trailing: Text(paymentItemObject.price,
+        trailing: Text(paymentItemObject.price.toString(),
             style: TextStyle(
                 color: Theme.of(context).colorScheme.onSecondaryContainer)),
       ),

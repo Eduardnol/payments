@@ -67,7 +67,6 @@ class PaymentRowItem extends StatelessWidget {
     } else if (title == "Description") {
       value = context.watch<PaymentProvider>().paymentItemObject.description;
     } else if (title == "Date") {
-      value = "null";
       value =
           context.watch<PaymentProvider>().paymentItemObject.date.toString();
     } else if (title == "Id") {

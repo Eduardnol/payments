@@ -36,7 +36,7 @@ class _GridListPaymentsState extends State<GridListPayments> {
         paymentItemObjects.add(PaymentItemObject(
           id: element.reference,
           title: element.data()['title'],
-          price: element.data()['price'],
+          price: double.parse(element.data()['price']),
           description: element.data()['description'],
           date: element.data()['date'].toDate(),
           category: element.data()['category'],
