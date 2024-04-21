@@ -20,9 +20,9 @@ class PaymentItemObject {
   });
 
   PaymentItemObject.empty()
-      : title = '',
+      : title = 'Title',
         price = 0.0,
-        description = '',
+        description = 'Description',
         date = DateTime.now(),
         category = '',
         id = FirebaseFirestore.instance.collection('payments').doc(),
