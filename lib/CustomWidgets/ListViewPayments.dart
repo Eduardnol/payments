@@ -4,7 +4,6 @@ import 'package:payments/services/AuthService.dart';
 import 'package:provider/provider.dart';
 
 import '../Model/PaymentObject.dart';
-import '../services/ProviderWidget.dart';
 import 'IndividualPaymentCard.dart';
 
 class GridListPayments extends StatefulWidget {
