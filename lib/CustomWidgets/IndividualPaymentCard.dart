@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import '../Model/PaymentObject.dart';
+import '../providers/PaymentProvider.dart';
 import 'FullScreenDialogPayment/ModalBottomSheetPayment.dart';
 
-class PaymentCard extends StatelessWidget {
+class IndividualPaymentCard extends StatelessWidget {
   final PaymentItemObject paymentItemObject;
 
-  const PaymentCard({super.key, required this.paymentItemObject});
+  const IndividualPaymentCard({super.key, required this.paymentItemObject});
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +41,7 @@ class PaymentCard extends StatelessWidget {
   }
 
   void showItemFromModalBottomSheetDialog(BuildContext context) {
+    context.read<PaymentProvider>().paymentItemObject = paymentItemObject;
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,

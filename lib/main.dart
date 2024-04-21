@@ -142,6 +142,8 @@ class MyHomePage extends StatelessWidget {
       createdOn: DateTime.now(),
     );
 
+    context.read<PaymentProvider>().paymentItemObject = paymentItemObject;
+
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,

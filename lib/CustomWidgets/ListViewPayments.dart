@@ -67,7 +67,7 @@ class _GridListPaymentsState extends State<GridListPayments> {
             : SliverList(
                 delegate: SliverChildListDelegate([
                   for (var paymentItemObject in paymentItemObjects)
-                    PaymentCard(paymentItemObject: paymentItemObject),
+                    IndividualPaymentCard(paymentItemObject: paymentItemObject),
                 ]),
               );
   }
