@@ -182,24 +182,35 @@ class ValueName extends StatelessWidget {
                         ),
                     controller: controller,
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (title == "Title") {
-                        context
-                            .read<PaymentProvider>()
-                            .setTitle(controller.text);
-                      } else if (title == "Price") {
-                        context
-                            .read<PaymentProvider>()
-                            .setPrice(double.parse(controller.text));
-                      } else if (title == "Description") {
-                        context
-                            .read<PaymentProvider>()
-                            .setDescription(controller.text);
-                      }
-                      Navigator.of(context).pop();
-                    },
-                    child: Text('Save'),
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.all(10),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(context).colorScheme.primary,
+                      ),
+                      onPressed: () {
+                        if (title == "Title") {
+                          context
+                              .read<PaymentProvider>()
+                              .setTitle(controller.text);
+                        } else if (title == "Price") {
+                          context
+                              .read<PaymentProvider>()
+                              .setPrice(double.parse(controller.text));
+                        } else if (title == "Description") {
+                          context
+                              .read<PaymentProvider>()
+                              .setDescription(controller.text);
+                        }
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        "Save",
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.onPrimary),
+                      ),
+                    ),
                   ),
                 ],
               );
