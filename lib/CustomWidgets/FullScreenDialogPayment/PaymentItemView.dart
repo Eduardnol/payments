@@ -60,15 +60,19 @@ class PaymentRowItem extends StatelessWidget {
     var value = "";
     var isEditable = true;
     if (title == "Title") {
-      value = paymentItemObject.title;
+      value = context.watch<PaymentProvider>().paymentItemObject.title;
     } else if (title == "Price") {
-      value = paymentItemObject.price;
+      value =
+          context.watch<PaymentProvider>().paymentItemObject.price.toString();
     } else if (title == "Description") {
-      value = paymentItemObject.description;
+      value = context.watch<PaymentProvider>().paymentItemObject.description;
     } else if (title == "Date") {
       value = "null";
+      value =
+          context.watch<PaymentProvider>().paymentItemObject.date.toString();
     } else if (title == "Id") {
-      value = paymentItemObject.id.id;
+      value =
+          context.watch<PaymentProvider>().paymentItemObject.id.id.toString();
       isEditable = false;
     }
 
@@ -87,10 +91,7 @@ class PaymentRowItem extends StatelessWidget {
                   flex: 4),
               Expanded(
                   child: ValueName(
-                      title: title,
-                      paymentItemObject: paymentItemObject,
-                      value: value,
-                      isEditable: isEditable),
+                      title: title, value: value, isEditable: isEditable),
                   flex: 6),
             ],
           ),
@@ -105,13 +106,11 @@ class ValueName extends StatelessWidget {
   const ValueName({
     super.key,
     required this.title,
-    required this.paymentItemObject,
     required this.value,
     required this.isEditable,
   });
 
   final String title;
-  final PaymentItemObject paymentItemObject;
   final String value;
   final bool isEditable;
 
@@ -139,7 +138,8 @@ class ValueName extends StatelessWidget {
         onPressed: () {
           processDateModalBottomSheet(context);
         },
-        child: Text('${myFormat.format(paymentItemObject.date)}'),
+        child: Text(
+            '${myFormat.format(context.watch<PaymentProvider>().paymentItemObject.date)}'),
       );
     } else {
       return TextFormField(
@@ -179,7 +179,7 @@ class ValueName extends StatelessWidget {
       lastDate: DateTime(2101),
     );
     if (picked != null) {
-      paymentItemObject.date = picked;
+      context.watch<PaymentProvider>().paymentItemObject.date = picked;
     }
   }
 }

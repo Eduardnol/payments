@@ -4,8 +4,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:payments/CustomWidgets/FullScreenDialogPayment/ModalBottomSheetPayment.dart';
+import 'package:payments/providers/PaymentProvider.dart';
 import 'package:payments/services/AuthService.dart';
-import 'package:payments/services/ProviderWidget.dart';
+import 'package:provider/provider.dart';
 import 'Model/PaymentObject.dart';
 import 'Pages/LoginPage.dart';
 import 'firebase_options.dart';
@@ -15,18 +16,28 @@ import 'CustomWidgets/ListViewPayments.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(
-    MyApp(),
-  );
+  runApp(ChangeNotifierProvider(
+    create: (context) => PaymentProvider(
+      PaymentItemObject(
+        id: FirebaseFirestore.instance.collection('payments').doc(),
+        date: DateTime.now(),
+        title: "",
+        category: "",
+        price: 0.0,
+        description: '',
+        createdOn: DateTime.now(),
+      ),
+    ),
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return Provider(
-      key: null,
-      auth: AuthService(),
+    return ChangeNotifierProvider<AuthService>(
+      create: (_) => AuthService(),
       child: MaterialApp(
         theme: ThemeData(
           // This is the theme of your application.

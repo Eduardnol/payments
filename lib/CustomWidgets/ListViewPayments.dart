@@ -21,7 +21,7 @@ class _GridListPaymentsState extends State<GridListPayments> {
   }
 
   retrievePayments() async {
-    final uid = await Provider.of(context).auth.getCurrentUID();
+    final uid = await context.watch<AuthService>().getCurrentUID();
     //TODO get only payments of current user
     FirebaseFirestore.instance
         .collection('userData')
