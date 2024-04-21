@@ -24,7 +24,7 @@ class PaymentItemView extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.onSurfaceVariant,
+              color: Theme.of(context).colorScheme.primaryContainer,
               borderRadius: BorderRadius.circular(10),
             ),
             child: PaymentRowItem(
@@ -144,15 +144,18 @@ class ValueName extends StatelessWidget {
     }
     if (isDate) {
       var myFormat = new DateFormat('dd-MM-yyyy');
-      return TextButton(
+      return TextButton.icon(
         onPressed: () {
           processDateModalBottomSheet(context);
         },
-        child: Text(
+        icon: Icon(Icons.edit),
+        label: Text(
             '${myFormat.format(context.watch<PaymentProvider>().paymentItemObject.date)}'),
       );
     } else {
-      return TextButton(
+      return TextButton.icon(
+        icon: Icon(Icons.edit),
+        label: Text(value),
         onPressed: () {
           showModalBottomSheet(
             context: context,
@@ -203,7 +206,6 @@ class ValueName extends StatelessWidget {
             },
           );
         },
-        child: Text(value),
       );
     }
   }
