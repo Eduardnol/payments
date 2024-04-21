@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../Model/PaymentObject.dart';
-import '../../services/ProviderWidget.dart';
+import '../../services/AuthService.dart';
 import 'PaymentItemView.dart';
 
 class ModalBottomSheetCustom extends StatelessWidget {
@@ -58,7 +59,7 @@ class ModalBottomSheetCustom extends StatelessWidget {
   }
 
   savePayment(BuildContext context) async {
-    final uid = await Provider.of(context).auth.getCurrentUID();
+    final uid = await context.watch<AuthService>().getCurrentUID();
     Future<void> savedPayment = FirebaseFirestore.instance
         .collection('userData')
         .doc(uid)
