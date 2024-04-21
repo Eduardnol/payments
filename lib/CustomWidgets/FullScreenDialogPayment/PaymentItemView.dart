@@ -216,7 +216,7 @@ class ValueName extends StatelessWidget {
       lastDate: DateTime(2101),
     );
     if (picked != null) {
-      context.watch<PaymentProvider>().paymentItemObject.date = picked;
+      context.read<PaymentProvider>().setDate(picked);
     }
   }
 }
