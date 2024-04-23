@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:payments/providers/PaymentProvider.dart';
+import 'package:provider/provider.dart';
 import '../../Model/PaymentObject.dart';
 
 class PaymentItemView extends StatelessWidget {
@@ -20,23 +22,33 @@ class PaymentItemView extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          PaymentRowItem(
-              title: "Title",
-              paymentItemObject: paymentItemObject,
-              icon: Icons.title),
+          Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primaryContainer,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: PaymentRowItem(
+                title: "Title",
+                paymentItemObject: paymentItemObject,
+                icon: Icons.title),
+          ),
+          Divider(),
           PaymentRowItem(
             title: "Price",
             icon: Icons.attach_money,
             paymentItemObject: paymentItemObject,
           ),
+          Divider(),
           PaymentRowItem(
               title: "Date",
               paymentItemObject: paymentItemObject,
               icon: Icons.calendar_today),
+          Divider(),
           PaymentRowItem(
               title: "Description",
               paymentItemObject: paymentItemObject,
               icon: Icons.description),
+          Divider(),
         ],
       ),
     );
@@ -60,15 +72,18 @@ class PaymentRowItem extends StatelessWidget {
     var value = "";
     var isEditable = true;
     if (title == "Title") {
-      value = paymentItemObject.title;
+      value = context.watch<PaymentProvider>().paymentItemObject.title;
     } else if (title == "Price") {
-      value = paymentItemObject.price;
+      value =
+          context.watch<PaymentProvider>().paymentItemObject.price.toString();
     } else if (title == "Description") {
-      value = paymentItemObject.description;
+      value = context.watch<PaymentProvider>().paymentItemObject.description;
     } else if (title == "Date") {
-      value = "null";
+      value =
+          context.watch<PaymentProvider>().paymentItemObject.date.toString();
     } else if (title == "Id") {
-      value = paymentItemObject.id.id;
+      value =
+          context.watch<PaymentProvider>().paymentItemObject.id.id.toString();
       isEditable = false;
     }
 
@@ -87,15 +102,11 @@ class PaymentRowItem extends StatelessWidget {
                   flex: 4),
               Expanded(
                   child: ValueName(
-                      title: title,
-                      paymentItemObject: paymentItemObject,
-                      value: value,
-                      isEditable: isEditable),
+                      title: title, value: value, isEditable: isEditable),
                   flex: 6),
             ],
           ),
         ),
-        Divider(),
       ],
     );
   }
@@ -105,13 +116,11 @@ class ValueName extends StatelessWidget {
   const ValueName({
     super.key,
     required this.title,
-    required this.paymentItemObject,
     required this.value,
     required this.isEditable,
   });
 
   final String title;
-  final PaymentItemObject paymentItemObject;
   final String value;
   final bool isEditable;
 
@@ -135,38 +144,79 @@ class ValueName extends StatelessWidget {
     }
     if (isDate) {
       var myFormat = new DateFormat('dd-MM-yyyy');
-      return TextButton(
+      return TextButton.icon(
         onPressed: () {
           processDateModalBottomSheet(context);
         },
-        child: Text('${myFormat.format(paymentItemObject.date)}'),
+        icon: Icon(Icons.edit),
+        label: Text(
+            '${myFormat.format(context.watch<PaymentProvider>().paymentItemObject.date)}'),
       );
     } else {
-      return TextFormField(
-        onChanged: (value) {
-          if (title == "Title") {
-            paymentItemObject.title = value;
-          } else if (title == "Price") {
-            paymentItemObject.price = value;
-          } else if (title == "Description") {
-            paymentItemObject.description = value;
-          }
+      return TextButton.icon(
+        icon: Icon(Icons.edit),
+        label: Text(value),
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            builder: (context) {
+              final TextEditingController controller =
+                  TextEditingController(text: value);
+              return Column(
+                children: [
+                  TextFormField(
+                    keyboardType: keyboardType,
+                    inputFormatters: inputFormatters,
+                    maxLines: maxLines,
+                    decoration: InputDecoration(
+                      enabled: isEditable,
+                      border: OutlineInputBorder(),
+                      labelText: title,
+                      labelStyle:
+                          Theme.of(context).textTheme.bodySmall!.copyWith(
+                                color: Theme.of(context).colorScheme.onSurface,
+                              ),
+                    ),
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                    controller: controller,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.all(10),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(context).colorScheme.primary,
+                      ),
+                      onPressed: () {
+                        if (title == "Title") {
+                          context
+                              .read<PaymentProvider>()
+                              .setTitle(controller.text);
+                        } else if (title == "Price") {
+                          context
+                              .read<PaymentProvider>()
+                              .setPrice(double.parse(controller.text));
+                        } else if (title == "Description") {
+                          context
+                              .read<PaymentProvider>()
+                              .setDescription(controller.text);
+                        }
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        "Save",
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.onPrimary),
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
+          );
         },
-        keyboardType: keyboardType,
-        inputFormatters: inputFormatters,
-        maxLines: maxLines,
-        decoration: InputDecoration(
-          enabled: isEditable,
-          border: OutlineInputBorder(),
-          labelText: title,
-          labelStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
-        ),
-        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
-        controller: TextEditingController(text: value),
       );
     }
   }
@@ -179,7 +229,7 @@ class ValueName extends StatelessWidget {
       lastDate: DateTime(2101),
     );
     if (picked != null) {
-      paymentItemObject.date = picked;
+      context.read<PaymentProvider>().setDate(picked);
     }
   }
 }
@@ -203,7 +253,7 @@ class TagName extends StatelessWidget {
           color: Theme.of(context).colorScheme.onSurface,
         ),
         Text(title,
-            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   color: Theme.of(context).colorScheme.onSurface,
                   fontWeight: FontWeight.bold,
                 )),

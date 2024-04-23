@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:payments/services/AuthService.dart';
+import 'package:provider/provider.dart';
 
 import '../Model/PaymentObject.dart';
-import '../services/ProviderWidget.dart';
 import 'IndividualPaymentCard.dart';
 
 class GridListPayments extends StatefulWidget {
@@ -21,7 +22,7 @@ class _GridListPaymentsState extends State<GridListPayments> {
   }
 
   retrievePayments() async {
-    final uid = await Provider.of(context).auth.getCurrentUID();
+    final uid = await context.read<AuthService>().getCurrentUID();
     //TODO get only payments of current user
     FirebaseFirestore.instance
         .collection('userData')
@@ -66,7 +67,7 @@ class _GridListPaymentsState extends State<GridListPayments> {
             : SliverList(
                 delegate: SliverChildListDelegate([
                   for (var paymentItemObject in paymentItemObjects)
-                    PaymentCard(paymentItemObject: paymentItemObject),
+                    IndividualPaymentCard(paymentItemObject: paymentItemObject),
                 ]),
               );
   }
