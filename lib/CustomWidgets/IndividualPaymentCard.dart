@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../Model/PaymentObject.dart';
 import '../providers/PaymentProvider.dart';
-import 'FullScreenDialogPayment/ModalBottomSheetPayment.dart';
+import 'ModalViewPaymentInfo/ModalBottomSheetPayment.dart';
 
 class IndividualPaymentCard extends StatelessWidget {
   final PaymentItemObject paymentItemObject;
