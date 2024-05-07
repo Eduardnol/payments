@@ -147,34 +147,40 @@ class ValueName extends StatelessWidget {
     }
     if (isDate) {
       var myFormat = new DateFormat('dd-MM-yyyy');
-      return TextButton.icon(
-        onPressed: () {
-          processDateModalBottomSheet(context);
-        },
-        icon: Icon(Icons.edit),
-        label: Text(
-            '${myFormat.format(context.watch<PaymentProvider>().paymentItemObject.date)}'),
+      return Align(
+        alignment: Alignment.centerRight,
+        child: TextButton.icon(
+          onPressed: () {
+            processDateModalBottomSheet(context);
+          },
+          icon: Icon(Icons.edit),
+          label: Text(
+              '${myFormat.format(context.watch<PaymentProvider>().paymentItemObject.date)}'),
+        ),
       );
     } else {
-      return TextButton.icon(
-        icon: Icon(Icons.edit),
-        label: Text(value),
-        onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            builder: (context) {
-              final TextEditingController controller =
-                  TextEditingController(text: value);
-              return ModalEditPaymentInfo(
-                  keyboardType: keyboardType,
-                  inputFormatters: inputFormatters,
-                  maxLines: maxLines,
-                  isEditable: isEditable,
-                  title: title,
-                  controller: controller);
-            },
-          );
-        },
+      return Align(
+        alignment: Alignment.centerRight,
+        child: TextButton.icon(
+          icon: Icon(Icons.edit),
+          label: Text(value),
+          onPressed: () {
+            showModalBottomSheet(
+              context: context,
+              builder: (context) {
+                final TextEditingController controller =
+                    TextEditingController(text: value);
+                return ModalEditPaymentInfo(
+                    keyboardType: keyboardType,
+                    inputFormatters: inputFormatters,
+                    maxLines: maxLines,
+                    isEditable: isEditable,
+                    title: title,
+                    controller: controller);
+              },
+            );
+          },
+        ),
       );
     }
   }
