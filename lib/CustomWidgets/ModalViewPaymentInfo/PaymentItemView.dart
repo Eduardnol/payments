@@ -133,8 +133,18 @@ class ValueName extends StatelessWidget {
     var keyboardType = TextInputType.text;
     var inputFormatters = <TextInputFormatter>[];
     var isDate = false;
+    if (title == "Title") {
+      inputFormatters = <TextInputFormatter>[
+        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9 ]')),
+        LengthLimitingTextInputFormatter(25),
+      ];
+    }
     if (title == "Description") {
       maxLines = 5;
+      inputFormatters = <TextInputFormatter>[
+        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9 ]')),
+        LengthLimitingTextInputFormatter(100),
+      ];
     }
     if (title == "Price") {
       keyboardType = TextInputType.number;
