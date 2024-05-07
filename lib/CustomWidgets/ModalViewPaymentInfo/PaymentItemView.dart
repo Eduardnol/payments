@@ -22,16 +22,18 @@ class PaymentItemView extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primaryContainer,
-              borderRadius: BorderRadius.circular(10),
+          CircleAvatar(
+            radius: 50,
+            child: Icon(
+              Icons.attach_money,
+              size: 50,
             ),
-            child: PaymentRowItem(
-                title: "Title",
-                paymentItemObject: paymentItemObject,
-                icon: Icons.title),
           ),
+          Divider(),
+          PaymentRowItem(
+              title: "Title",
+              paymentItemObject: paymentItemObject,
+              icon: Icons.title),
           Divider(),
           PaymentRowItem(
             title: "Price",
@@ -100,6 +102,7 @@ class PaymentRowItem extends StatelessWidget {
                     icon: icon,
                   ),
                   flex: 4),
+              Spacer(),
               Expanded(
                   child: ValueName(
                       title: title, value: value, isEditable: isEditable),
