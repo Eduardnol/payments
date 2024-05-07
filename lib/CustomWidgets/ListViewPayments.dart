@@ -21,6 +21,26 @@ class _GridListPaymentsState extends State<GridListPayments> {
     retrievePayments();
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return _isLoadingData
+        ? SliverToBoxAdapter(
+            child: const Center(child: CircularProgressIndicator()))
+        : paymentItemObjects.isEmpty
+            ? SliverToBoxAdapter(
+                child: Center(
+                child: Text("No payments added yet!",
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface)),
+              ))
+            : SliverList(
+                delegate: SliverChildListDelegate([
+                  for (var paymentItemObject in paymentItemObjects)
+                    IndividualPaymentCard(paymentItemObject: paymentItemObject),
+                ]),
+              );
+  }
+
   retrievePayments() async {
     final uid = await context.read<AuthService>().getCurrentUID();
     //TODO get only payments of current user
@@ -50,25 +70,5 @@ class _GridListPaymentsState extends State<GridListPayments> {
 
       setState(() {});
     });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return _isLoadingData
-        ? SliverToBoxAdapter(
-            child: const Center(child: CircularProgressIndicator()))
-        : paymentItemObjects.isEmpty
-            ? SliverToBoxAdapter(
-                child: Center(
-                child: Text("No payments added yet!",
-                    style: TextStyle(
-                        color: Theme.of(context).colorScheme.onSurface)),
-              ))
-            : SliverList(
-                delegate: SliverChildListDelegate([
-                  for (var paymentItemObject in paymentItemObjects)
-                    IndividualPaymentCard(paymentItemObject: paymentItemObject),
-                ]),
-              );
   }
 }

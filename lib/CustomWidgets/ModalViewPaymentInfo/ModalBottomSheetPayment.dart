@@ -6,9 +6,10 @@ import '../../Model/PaymentObject.dart';
 import '../../services/AuthService.dart';
 import 'PaymentItemView.dart';
 
-class ModalBottomSheetCustom extends StatelessWidget {
+class ModalBottomSheetPayment extends StatelessWidget {
   final PaymentItemObject paymentItemObject;
-  const ModalBottomSheetCustom({super.key, required this.paymentItemObject});
+
+  const ModalBottomSheetPayment({super.key, required this.paymentItemObject});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class ModalBottomSheetCustom extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
         elevation: 0,
-        title: Text("Payment Details"),
+        title: Text(paymentItemObject.title + " Details"),
         actions: [
           TextButton.icon(
             onPressed: () {

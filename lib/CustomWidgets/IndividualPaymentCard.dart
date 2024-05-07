@@ -50,7 +50,8 @@ class IndividualPaymentCard extends StatelessWidget {
           borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
           child: Container(
             height: MediaQuery.of(context).size.height * 0.9,
-            child: ModalBottomSheetCustom(paymentItemObject: paymentItemObject),
+            child:
+                ModalBottomSheetPayment(paymentItemObject: paymentItemObject),
           ),
         );
       },
