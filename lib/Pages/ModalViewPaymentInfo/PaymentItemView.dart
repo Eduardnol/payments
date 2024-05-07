@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:payments/providers/PaymentProvider.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import '../../Model/PaymentObject.dart';
 
 class PaymentItemView extends StatelessWidget {
@@ -24,9 +25,9 @@ class PaymentItemView extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 50,
-            child: Icon(
-              Icons.attach_money,
-              size: 50,
+            child: IconButton(
+              icon: Icon(Icons.attach_money),
+              onPressed: _pickIcon,
             ),
           ),
           Divider(),
@@ -54,6 +55,12 @@ class PaymentItemView extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  _pickIcon() async {
+    IconData? icon = await FlutterIconPicker.showIconPicker(context,
+        iconPackModes: [IconPack.cupertino]);
+    debugPrint('Picked Icon:  $icon');
   }
 }
 
