@@ -219,7 +219,6 @@ class ModalEditPaymentInfo extends StatelessWidget {
             maxLines: maxLines,
             decoration: InputDecoration(
               enabled: isEditable,
-              border: OutlineInputBorder(),
               labelText: title,
               labelStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
                     color: Theme.of(context).colorScheme.onSurface,
@@ -227,6 +226,7 @@ class ModalEditPaymentInfo extends StatelessWidget {
             ),
             style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   color: Theme.of(context).colorScheme.onSurface,
+                  fontSize: 24,
                 ),
             controller: controller,
           ),
