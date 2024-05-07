@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:payments/services/AuthService.dart';
 import 'package:provider/provider.dart';
 
-import '../Model/PaymentObject.dart';
+import '../../Model/PaymentObject.dart';
 import 'IndividualPaymentCard.dart';
 
 class GridListPayments extends StatefulWidget {

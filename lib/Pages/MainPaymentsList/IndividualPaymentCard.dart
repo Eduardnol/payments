@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import '../Model/PaymentObject.dart';
-import '../providers/PaymentProvider.dart';
-import 'ModalViewPaymentInfo/ModalBottomSheetPayment.dart';
+import '../../Model/PaymentObject.dart';
+import '../../providers/PaymentProvider.dart';
+import '../ModalViewPaymentInfo/ModalBottomSheetPayment.dart';
 
 class IndividualPaymentCard extends StatelessWidget {
   final PaymentItemObject paymentItemObject;

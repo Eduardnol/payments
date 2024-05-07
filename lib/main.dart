@@ -3,14 +3,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:payments/CustomWidgets/ModalViewPaymentInfo/ModalBottomSheetPayment.dart';
+import 'package:payments/Pages/ModalViewPaymentInfo/ModalBottomSheetPayment.dart';
 import 'package:payments/providers/PaymentProvider.dart';
 import 'package:payments/services/AuthService.dart';
 import 'package:provider/provider.dart';
 import 'Model/PaymentObject.dart';
 import 'Pages/LoginPage.dart';
 import 'firebase_options.dart';
-import 'CustomWidgets/ListViewPayments.dart';
+import 'Pages/MainPaymentsList/ListViewPayments.dart';
 
 //TODO iOS firebase cloud messaging
 Future<void> main() async {
