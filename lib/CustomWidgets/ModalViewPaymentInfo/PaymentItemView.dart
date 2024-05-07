@@ -162,58 +162,13 @@ class ValueName extends StatelessWidget {
             builder: (context) {
               final TextEditingController controller =
                   TextEditingController(text: value);
-              return Column(
-                children: [
-                  TextFormField(
-                    keyboardType: keyboardType,
-                    inputFormatters: inputFormatters,
-                    maxLines: maxLines,
-                    decoration: InputDecoration(
-                      enabled: isEditable,
-                      border: OutlineInputBorder(),
-                      labelText: title,
-                      labelStyle:
-                          Theme.of(context).textTheme.bodySmall!.copyWith(
-                                color: Theme.of(context).colorScheme.onSurface,
-                              ),
-                    ),
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          color: Theme.of(context).colorScheme.onSurface,
-                        ),
-                    controller: controller,
-                  ),
-                  Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.all(10),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).colorScheme.primary,
-                      ),
-                      onPressed: () {
-                        if (title == "Title") {
-                          context
-                              .read<PaymentProvider>()
-                              .setTitle(controller.text);
-                        } else if (title == "Price") {
-                          context
-                              .read<PaymentProvider>()
-                              .setPrice(double.parse(controller.text));
-                        } else if (title == "Description") {
-                          context
-                              .read<PaymentProvider>()
-                              .setDescription(controller.text);
-                        }
-                        Navigator.of(context).pop();
-                      },
-                      child: Text(
-                        "Save",
-                        style: TextStyle(
-                            color: Theme.of(context).colorScheme.onPrimary),
-                      ),
-                    ),
-                  ),
-                ],
-              );
+              return ModalEditPaymentInfo(
+                  keyboardType: keyboardType,
+                  inputFormatters: inputFormatters,
+                  maxLines: maxLines,
+                  isEditable: isEditable,
+                  title: title,
+                  controller: controller);
             },
           );
         },
@@ -231,6 +186,78 @@ class ValueName extends StatelessWidget {
     if (picked != null) {
       context.read<PaymentProvider>().setDate(picked);
     }
+  }
+}
+
+class ModalEditPaymentInfo extends StatelessWidget {
+  const ModalEditPaymentInfo({
+    super.key,
+    required this.keyboardType,
+    required this.inputFormatters,
+    required this.maxLines,
+    required this.isEditable,
+    required this.title,
+    required this.controller,
+  });
+
+  final TextInputType keyboardType;
+  final List<TextInputFormatter> inputFormatters;
+  final int maxLines;
+  final bool isEditable;
+  final String title;
+  final TextEditingController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.all(10.0),
+          child: TextFormField(
+            keyboardType: keyboardType,
+            inputFormatters: inputFormatters,
+            maxLines: maxLines,
+            decoration: InputDecoration(
+              enabled: isEditable,
+              border: OutlineInputBorder(),
+              labelText: title,
+              labelStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+            ),
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+            controller: controller,
+          ),
+        ),
+        Container(
+          width: double.infinity,
+          padding: EdgeInsets.all(10),
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.primary,
+            ),
+            onPressed: () {
+              if (title == "Title") {
+                context.read<PaymentProvider>().setTitle(controller.text);
+              } else if (title == "Price") {
+                context
+                    .read<PaymentProvider>()
+                    .setPrice(double.parse(controller.text));
+              } else if (title == "Description") {
+                context.read<PaymentProvider>().setDescription(controller.text);
+              }
+              Navigator.of(context).pop();
+            },
+            child: Text(
+              "Save",
+              style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
 
