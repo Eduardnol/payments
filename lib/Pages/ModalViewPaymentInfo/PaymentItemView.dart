@@ -27,7 +27,7 @@ class PaymentItemView extends StatelessWidget {
             radius: 50,
             child: IconButton(
               icon: Icon(Icons.attach_money),
-              onPressed: _pickIcon,
+              onPressed: () => {},
             ),
           ),
           Divider(),
@@ -55,12 +55,6 @@ class PaymentItemView extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  _pickIcon() async {
-    IconData? icon = await FlutterIconPicker.showIconPicker(context,
-        iconPackModes: [IconPack.cupertino]);
-    debugPrint('Picked Icon:  $icon');
   }
 }
 
