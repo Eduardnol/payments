@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:payments/Pages/ModalViewPaymentInfo/ModalBottomSheetPayment.dart';
+import 'package:payments/Pages/Profile/ProfilePage.dart';
 import 'package:payments/providers/PaymentProvider.dart';
 import 'package:payments/services/AuthService.dart';
 import 'package:provider/provider.dart';
@@ -81,6 +82,17 @@ class MyHomePage extends StatelessWidget {
               print("SliverAppBar onStretchTrigger");
             },
             floating: true,
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.account_circle),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ProfilePage()),
+                  );
+                },
+              ),
+            ],
             pinned: true,
             snap: true,
             backgroundColor: Theme.of(context).colorScheme.primary,
