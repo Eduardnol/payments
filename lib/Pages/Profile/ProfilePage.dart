@@ -128,12 +128,13 @@ class _ProfilePageState extends State<ProfilePage> {
 
                   Navigator.of(context).pop();
                 } catch (e) {
+                  Navigator.of(context).pop();
                   // Manejar el error
                   print(e);
-                  // Mostrar un toast
                   // Mostrar un Snackbar
                   final snackBar = SnackBar(
-                    content: Text("Error al actualizar la contraseña"),
+                    content: Text(
+                        "Error al actualizar la contraseña:" + e.toString()),
                     backgroundColor: Colors.red,
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
