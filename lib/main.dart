@@ -84,7 +84,7 @@ class MyHomePage extends StatelessWidget {
             floating: true,
             actions: <Widget>[
               IconButton(
-                icon: Icon(Icons.account_circle),
+                icon: Icon(Icons.account_circle, color: Colors.white),
                 onPressed: () {
                   Navigator.push(
                     context,
