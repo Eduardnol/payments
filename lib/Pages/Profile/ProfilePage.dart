@@ -26,9 +26,11 @@ class _ProfilePageState extends State<ProfilePage> {
       body: ListView(
         children: <Widget>[
           ListTile(
+            leading: Icon(Icons.mail),
             title: Text('Email: ${user?.email}'),
           ),
           ListTile(
+            leading: Icon(Icons.logout),
             title: Text('Logout'),
             onTap: () async {
               await FirebaseAuth.instance.signOut();
@@ -37,12 +39,14 @@ class _ProfilePageState extends State<ProfilePage> {
             },
           ),
           ListTile(
+            leading: Icon(Icons.lock),
             title: Text('Cambiar contraseña'),
             onTap: () {
               _changePassword();
             },
           ),
           ListTile(
+            leading: Icon(Icons.delete_forever_rounded),
             title: Text('Eliminar cuenta'),
             onTap: () async {
               await user?.delete();
