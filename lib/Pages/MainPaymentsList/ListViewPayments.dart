@@ -42,33 +42,29 @@ class _GridListPaymentsState extends State<GridListPayments> {
   }
 
   retrievePayments() async {
-    final uid = await context.read<AuthService>().getCurrentUID();
-    //TODO get only payments of current user
-    FirebaseFirestore.instance
-        .collection('userData')
-        .doc(uid)
-        .collection('payments')
-        .snapshots()
-        .listen((event) {
-      _isLoadingData = false;
+    try {
+      final uid = await context.read<AuthService>().getCurrentUID();
+      //TODO get only payments of current user
+      var data = FirebaseFirestore.instance
+          .collection('userData')
+          .doc(uid)
+          .collection('payments')
+          .get();
 
-      paymentItemObjects.clear();
-      event.docs.forEach((element) {
-        paymentItemObjects.add(PaymentItemObject(
-          id: element.reference,
-          title: element.data()['title'],
-          price: element.data()['price'],
-          description: element.data()['description'],
-          date: element.data()['date'].toDate(),
-          category: element.data()['category'],
-          createdOn: DateTime.parse(element.data()['createdOn']),
-        ));
+      data.then((QuerySnapshot elements) {
+        _isLoadingData = false;
+        paymentItemObjects.clear();
+        elements.docs.forEach((element) {
+          paymentItemObjects.add(PaymentItemObject.fromFirestore(element));
+        });
+
+        paymentItemObjects.sort(
+            (a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
+
+        setState(() {});
       });
-
-      paymentItemObjects.sort(
-          (a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
-
-      setState(() {});
-    });
+    } catch (e) {
+      print('Error retrieving payments: $e');
+    }
   }
 }

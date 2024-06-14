@@ -27,4 +27,17 @@ class PaymentItemObject {
         category = '',
         id = FirebaseFirestore.instance.collection('payments').doc(),
         createdOn = DateTime.now();
+
+  factory PaymentItemObject.fromFirestore(DocumentSnapshot doc) {
+    Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+    return PaymentItemObject(
+      title: data['title'],
+      price: data['price'],
+      description: data['description'],
+      date: data['date'].toDate(),
+      category: data['category'],
+      id: doc.reference,
+      createdOn: DateTime.parse(data['createdOn']),
+    );
+  }
 }

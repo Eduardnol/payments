@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -49,8 +50,9 @@ class _ProfilePageState extends State<ProfilePage> {
             leading: Icon(Icons.delete_forever_rounded),
             title: Text('Eliminar cuenta'),
             onTap: () async {
-              await user?.delete();
-              Navigator.of(context).pushReplacementNamed('/login');
+              _confirmDeleteAccount();
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => LoginPage()));
             },
           ),
         ],
@@ -135,6 +137,52 @@ class _ProfilePageState extends State<ProfilePage> {
                   final snackBar = SnackBar(
                     content: Text(
                         "Error al actualizar la contraseña:" + e.toString()),
+                    backgroundColor: Colors.red,
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _confirmDeleteAccount() async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Confirmar eliminación de cuenta'),
+          content: Text(
+              '¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Cancelar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('Eliminar'),
+              onPressed: () async {
+                try {
+                  //Get the current user id
+                  String id = FirebaseAuth.instance.currentUser!.uid;
+                  //Delete all the data of the user
+                  await FirebaseFirestore.instance
+                      .collection('userData')
+                      .doc(id)
+                      .delete();
+                  //Delete the user
+                  await user?.delete();
+                  Navigator.of(context).pop();
+                } catch (e) {
+                  print(e);
+                  final snackBar = SnackBar(
+                    content:
+                        Text("Error al eliminar la cuenta: " + e.toString()),
                     backgroundColor: Colors.red,
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
