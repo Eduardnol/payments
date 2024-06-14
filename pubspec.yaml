@@ -62,7 +62,7 @@ dependencies:
 
 
 
-  dwds: ^22.1.0
+  dwds: 24.0.0
   shelf_proxy: ^1.0.0
   http: ^0.13.0
   cloud_firestore: ^4.15.8
