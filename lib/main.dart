@@ -111,7 +111,7 @@ class MyHomePage extends StatelessWidget {
               ],
               background: FittedBox(
                 fit: BoxFit.fitWidth,
-                child: Image.asset('images/main_screen.jpg'),
+                child: Image.asset('assets/images/main_screen.jpg'),
               ),
               collapseMode: CollapseMode.pin,
             ),
