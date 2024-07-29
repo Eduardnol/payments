@@ -26,7 +26,7 @@ dependencies:
 
   firebase_analytics: ^10.7.1  # add dependency for Google Analytics for Firebase
 
-  firebase_core: ^2.23.0
+  firebase_core: ^2.31.0
 
   firebase_messaging: ^14.7.19
 

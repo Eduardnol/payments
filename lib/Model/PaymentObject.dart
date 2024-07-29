@@ -32,7 +32,7 @@ class PaymentItemObject {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     return PaymentItemObject(
       title: data['title'],
-      price: data['price'],
+      price: (data['price'] as num).toDouble(),
       description: data['description'],
       date: data['date'].toDate(),
       category: data['category'],
