@@ -42,7 +42,14 @@ class PaymentItemObject {
       category: data['category'],
       id: doc.reference,
       createdOn: DateTime.parse(data['createdOn']),
-      icon: Icon(Icons.attach_money),
+      icon: data.containsKey('iconCodePoint') && data['iconCodePoint'] != null
+          ? Icon(
+              IconData(
+                data['iconCodePoint'],
+                fontFamily: 'MaterialIcons',
+              ),
+            )
+          : Icon(Icons.attach_money),
     );
   }
 }

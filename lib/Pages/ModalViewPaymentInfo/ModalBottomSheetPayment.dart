@@ -63,7 +63,7 @@ class ModalBottomSheetPayment extends StatelessWidget {
     final uid = await context.read<AuthService>().getCurrentUID();
 
     // Convertir el IconData a un entero para almacenarlo en Firestore
-    final iconData = paymentItemObject.icon.key;
+    final iconData = paymentItemObject.icon.icon?.codePoint ?? 11111;
 
     Future<void> savedPayment = FirebaseFirestore.instance
         .collection('userData')

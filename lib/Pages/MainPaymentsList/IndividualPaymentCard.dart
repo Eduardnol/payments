@@ -31,7 +31,12 @@ class IndividualPaymentCard extends StatelessWidget {
               color: Theme.of(context).colorScheme.onSecondaryContainer),
         ),
         leading: CircleAvatar(
-          child: Icon(Icons.attach_money),
+          child: Icon(
+            IconData(
+              paymentItemObject.icon.icon!.codePoint,
+              fontFamily: 'MaterialIcons',
+            ),
+          ),
         ),
         trailing: Text(paymentItemObject.price.toString(),
             style: TextStyle(
