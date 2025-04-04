@@ -204,7 +204,7 @@ class ValueName extends StatelessWidget {
         alignment: Alignment.centerRight,
         child: TextButton.icon(
           icon: Icon(Icons.emoji_emotions),
-          label: Text("Cambiar icono"),
+          label: Text("Change Icon"),
           onPressed: () async {
             IconData? icon = await showIconPicker(
               context,
@@ -213,7 +213,7 @@ class ValueName extends StatelessWidget {
               iconColor: Theme.of(context).colorScheme.onSurface,
               iconSize: 40,
               title: Text(
-                'Seleccionar un icono',
+                'Select an Icon',
                 style:
                     TextStyle(color: Theme.of(context).colorScheme.onSurface),
               ),
