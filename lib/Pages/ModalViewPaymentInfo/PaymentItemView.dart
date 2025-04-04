@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_iconpicker/Models/IconPack.dart';
+import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import 'package:intl/intl.dart';
 import 'package:payments/providers/PaymentProvider.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import '../../Model/PaymentObject.dart';
 
 class PaymentItemView extends StatelessWidget {
@@ -26,7 +27,8 @@ class PaymentItemView extends StatelessWidget {
           CircleAvatar(
             radius: 50,
             child: IconButton(
-              icon: Icon(Icons.attach_money),
+              icon: Icon(
+                  context.watch<PaymentProvider>().paymentItemObject.icon.icon),
               onPressed: () => {},
             ),
           ),
@@ -52,7 +54,26 @@ class PaymentItemView extends StatelessWidget {
               paymentItemObject: paymentItemObject,
               icon: Icons.description),
           Divider(),
+          PaymentRowItem(
+              title: "Icon",
+              paymentItemObject: paymentItemObject,
+              icon: Icons.emoji_emotions),
+          Divider(),
         ],
+      ),
+    );
+  }
+
+  Future<void> _pickIcon(BuildContext context) async {
+    IconData? icon = await showIconPicker(
+      context,
+      iconPackModes: [IconPack.material],
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      iconColor: Theme.of(context).colorScheme.onSurface,
+      iconSize: 40,
+      title: Text(
+        'Seleccionar un icono',
+        style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
       ),
     );
   }
@@ -88,6 +109,9 @@ class PaymentRowItem extends StatelessWidget {
       value =
           context.watch<PaymentProvider>().paymentItemObject.id.id.toString();
       isEditable = false;
+    } else if (title == "Icon") {
+      value = "Cambia el icono del pago";
+      isEditable = true;
     }
 
     return Column(
@@ -134,6 +158,8 @@ class ValueName extends StatelessWidget {
     var keyboardType = TextInputType.text;
     var inputFormatters = <TextInputFormatter>[];
     var isDate = false;
+    var isIcon = false;
+
     if (title == "Title") {
       inputFormatters = <TextInputFormatter>[
         FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9 ]')),
@@ -156,6 +182,10 @@ class ValueName extends StatelessWidget {
     if (title == "Date") {
       isDate = true;
     }
+    if (title == "Icon") {
+      isIcon = true;
+    }
+
     if (isDate) {
       var myFormat = new DateFormat('dd-MM-yyyy');
       return Align(
@@ -167,6 +197,32 @@ class ValueName extends StatelessWidget {
           icon: Icon(Icons.edit),
           label: Text(
               '${myFormat.format(context.watch<PaymentProvider>().paymentItemObject.date)}'),
+        ),
+      );
+    } else if (isIcon) {
+      return Align(
+        alignment: Alignment.centerRight,
+        child: TextButton.icon(
+          icon: Icon(Icons.emoji_emotions),
+          label: Text("Change Icon"),
+          onPressed: () async {
+            IconData? icon = await showIconPicker(
+              context,
+              iconPackModes: [IconPack.material],
+              backgroundColor: Theme.of(context).colorScheme.surface,
+              iconColor: Theme.of(context).colorScheme.onSurface,
+              iconSize: 40,
+              title: Text(
+                'Select an Icon',
+                style:
+                    TextStyle(color: Theme.of(context).colorScheme.onSurface),
+              ),
+            );
+
+            if (icon != null) {
+              context.read<PaymentProvider>().setIcon(Icon(icon));
+            }
+          },
         ),
       );
     } else {
