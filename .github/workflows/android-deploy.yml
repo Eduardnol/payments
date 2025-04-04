@@ -60,7 +60,7 @@ jobs:
       - name: Build Flutter App Bundle (Release)
         # Pasa las credenciales de firma como variables de entorno seguras
         # Flutter/Gradle las recogerán automáticamente si están nombradas correctamente
-        run: flutter build appbundle --release
+        run: flutter build appbundle --release --no-tree-shake-icons
         env:
           # Estas variables son estándar para la firma en Android/Gradle
           SIGNING_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
