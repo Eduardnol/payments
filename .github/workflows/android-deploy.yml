@@ -46,15 +46,15 @@ jobs:
         # Decodifica la clave (guardada como base64 en Secrets) y la guarda en un archivo temporal
         # GitHub Actions enmascara automáticamente los valores de los secrets en los logs.
         run: |
-          echo "${{ secrets.ANDROID_SIGNING_KEY_BASE64 }}" | base64 --decode > ${{ runner.temporary }}/signing_key.jks
-          echo "keyStorePath=${{ runner.temporary }}/signing_key.jks" >> $GITHUB_OUTPUT
+          echo "${{ secrets.ANDROID_SIGNING_KEY_BASE64 }}" | base64 --decode > ${{ runner.temp }}/signing_key.jks
+          echo "keyStorePath=${{ runner.temp }}/signing_key.jks" >> $GITHUB_OUTPUT
 
       - name: Decode Play Store Service Account JSON
         id: decode_json
         # Decodifica el JSON de la cuenta de servicio (guardado como base64 en Secrets)
         run: |
-          echo "${{ secrets.PLAY_STORE_SERVICE_ACCOUNT_BASE64 }}" | base64 --decode > ${{ runner.temporary }}/service_account.json
-          echo "serviceAccountJsonPath=${{ runner.temporary }}/service_account.json" >> $GITHUB_OUTPUT
+          echo "${{ secrets.PLAY_STORE_SERVICE_ACCOUNT_BASE64 }}" | base64 --decode > ${{ runner.temp }}/service_account.json
+          echo "serviceAccountJsonPath=${{ runner.temp }}/service_account.json" >> $GITHUB_OUTPUT
 
       # --- Construcción del App Bundle ---
       - name: Build Flutter App Bundle (Release)
@@ -83,7 +83,7 @@ jobs:
           status: completed # O 'draft' si quieres revisarlo antes en Play Console
 
       # --- Limpieza (Opcional pero recomendado) ---
-      - name: Clean up temporary files
+      - name: Clean up temp files
         if: always() # Ejecutar siempre, incluso si pasos anteriores fallan
         run: |
           rm -f ${{ steps.decode_keystore.outputs.keyStorePath }}
