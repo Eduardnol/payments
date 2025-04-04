@@ -31,7 +31,7 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace "com.example.payments"
     compileSdkVersion 34
-    ndkVersion flutter.ndkVersion
+    ndkVersion localProperties.getProperty('flutter.ndkVersion').toString()
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
