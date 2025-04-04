@@ -1,0 +1,90 @@
+name: Build and Release Flutter Android App to Play Store
+
+on:
+  workflow_dispatch: # Permite disparar el workflow manualmente desde la UI de GitHub
+    inputs:
+      releaseNotes:
+        description: 'Novedades de esta versión (para la Play Store)'
+        required: true
+        type: string
+      track:
+        description: 'Canal de lanzamiento en Play Store'
+        required: true
+        type: choice
+        options:
+          - internal
+          - alpha
+          - beta
+          - production
+        default: 'internal' # Canal por defecto (más seguro)
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin' # O 'zulu', 'adopt', etc.
+          java-version: '17' # Asegúrate que es compatible con tu versión de Gradle/AGP
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable' # O el canal que uses (beta, dev, master)
+          # flutter-version: '3.x.x' # Opcional: Fija una versión específica
+
+      - name: Download Flutter dependencies
+        run: flutter pub get
+
+      # --- Preparación de Secretos (Decodificación Segura) ---
+      - name: Decode Keystore
+        id: decode_keystore
+        # Decodifica la clave (guardada como base64 en Secrets) y la guarda en un archivo temporal
+        # GitHub Actions enmascara automáticamente los valores de los secrets en los logs.
+        run: |
+          echo "${{ secrets.ANDROID_SIGNING_KEY_BASE64 }}" | base64 --decode > ${{ runner.temporary }}/signing_key.jks
+          echo "keyStorePath=${{ runner.temporary }}/signing_key.jks" >> $GITHUB_OUTPUT
+
+      - name: Decode Play Store Service Account JSON
+        id: decode_json
+        # Decodifica el JSON de la cuenta de servicio (guardado como base64 en Secrets)
+        run: |
+          echo "${{ secrets.PLAY_STORE_SERVICE_ACCOUNT_BASE64 }}" | base64 --decode > ${{ runner.temporary }}/service_account.json
+          echo "serviceAccountJsonPath=${{ runner.temporary }}/service_account.json" >> $GITHUB_OUTPUT
+
+      # --- Construcción del App Bundle ---
+      - name: Build Flutter App Bundle (Release)
+        # Pasa las credenciales de firma como variables de entorno seguras
+        # Flutter/Gradle las recogerán automáticamente si están nombradas correctamente
+        run: flutter build appbundle --release
+        env:
+          # Estas variables son estándar para la firma en Android/Gradle
+          SIGNING_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          SIGNING_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          SIGNING_STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          SIGNING_STORE_FILE: ${{ steps.decode_keystore.outputs.keyStorePath }} # Ruta al archivo decodificado
+
+      # --- Subida a Google Play Store ---
+      - name: Upload to Google Play Store
+        uses: r0adkll/upload-google-play@v1.1.1 # Usa una acción específica para Play Store
+        with:
+          # Usa la ruta del archivo JSON decodificado
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_STORE_SERVICE_ACCOUNT_BASE64 }} # La acción puede manejar base64 directamente
+          packageName: ${{ secrets.ANDROID_PACKAGE_NAME }} # Nombre del paquete de tu app (desde Secrets)
+          releaseFiles: build/app/outputs/bundle/release/app-release.aab # Ruta al App Bundle generado
+          track: ${{ github.event.inputs.track }} # Canal obtenido del input manual
+          whatsNewDirectory: whatsnew # Directorio opcional con archivos .txt por idioma (ej: whatsnew/es-ES.txt)
+          # O usar directamente el texto del input:
+          whatsNew: ${{ github.event.inputs.releaseNotes }} # Novedades obtenidas del input manual
+          status: completed # O 'draft' si quieres revisarlo antes en Play Console
+
+      # --- Limpieza (Opcional pero recomendado) ---
+      - name: Clean up temporary files
+        if: always() # Ejecutar siempre, incluso si pasos anteriores fallan
+        run: |
+          rm -f ${{ steps.decode_keystore.outputs.keyStorePath }}
+          rm -f ${{ steps.decode_json.outputs.serviceAccountJsonPath }}
