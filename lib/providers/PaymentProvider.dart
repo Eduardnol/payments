@@ -28,4 +28,9 @@ class PaymentProvider with ChangeNotifier {
     paymentItemObject.description = description;
     notifyListeners();
   }
+
+  void setIcon(Icon icon) {
+    paymentItemObject.icon = icon;
+    notifyListeners();
+  }
 }

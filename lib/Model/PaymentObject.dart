@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class PaymentItemObject {
+  Icon icon;
   String title;
   double price;
   String description;
@@ -10,6 +12,7 @@ class PaymentItemObject {
   DateTime createdOn;
 
   PaymentItemObject({
+    required this.icon,
     required this.title,
     required this.price,
     required this.description,
@@ -21,6 +24,7 @@ class PaymentItemObject {
 
   PaymentItemObject.empty()
       : title = 'Title',
+        icon = Icon(Icons.attach_money),
         price = 0.0,
         description = 'Description',
         date = DateTime.now(),
@@ -32,12 +36,20 @@ class PaymentItemObject {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     return PaymentItemObject(
       title: data['title'],
-      price: data['price'],
+      price: (data['price'] as num).toDouble(),
       description: data['description'],
       date: data['date'].toDate(),
       category: data['category'],
       id: doc.reference,
       createdOn: DateTime.parse(data['createdOn']),
+      icon: data.containsKey('iconCodePoint') && data['iconCodePoint'] != null
+          ? Icon(
+              IconData(
+                data['iconCodePoint'],
+                fontFamily: 'MaterialIcons',
+              ),
+            )
+          : Icon(Icons.attach_money),
     );
   }
 }

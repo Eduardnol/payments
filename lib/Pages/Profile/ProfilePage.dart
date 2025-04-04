@@ -22,7 +22,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Perfil'),
+        title: Text('Profile'),
       ),
       body: ListView(
         children: <Widget>[
@@ -41,14 +41,14 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           ListTile(
             leading: Icon(Icons.lock),
-            title: Text('Cambiar contraseña'),
+            title: Text('Change Password'),
             onTap: () {
               _changePassword();
             },
           ),
           ListTile(
             leading: Icon(Icons.delete_forever_rounded),
-            title: Text('Eliminar cuenta'),
+            title: Text('Delete Account'),
             onTap: () async {
               _confirmDeleteAccount();
               Navigator.push(context,
@@ -68,7 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Cambiar contraseña',
+          title: Text('Change Password',
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
@@ -78,7 +78,7 @@ class _ProfilePageState extends State<ProfilePage> {
               TextField(
                   obscureText: true,
                   decoration: InputDecoration(
-                    labelText: 'Contraseña actual',
+                    labelText: 'Current Password',
                   ),
                   onChanged: (value) {
                     oldPassword = value;
@@ -90,7 +90,7 @@ class _ProfilePageState extends State<ProfilePage> {
               TextField(
                   obscureText: true,
                   decoration: InputDecoration(
-                    labelText: 'Nueva contraseña',
+                    labelText: 'New Password',
                   ),
                   onChanged: (value) {
                     newPassword = value;
@@ -103,13 +103,13 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('Cancelar'),
+              child: Text('Cancel'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: Text('Aceptar'),
+              child: Text('Accept'),
               onPressed: () async {
                 try {
                   // Crear una credencial
@@ -124,7 +124,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   // Actualizar la contraseña
                   await user!.updatePassword(newPassword);
                   final snackBar = SnackBar(
-                    content: Text("Se ha cambiado la contraseña"),
+                    content: Text("Password has been changed"),
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
@@ -135,8 +135,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   print(e);
                   // Mostrar un Snackbar
                   final snackBar = SnackBar(
-                    content: Text(
-                        "Error al actualizar la contraseña:" + e.toString()),
+                    content: Text("Error updating password: " + e.toString()),
                     backgroundColor: Colors.red,
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -154,18 +153,18 @@ class _ProfilePageState extends State<ProfilePage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Confirmar eliminación de cuenta'),
+          title: Text('Confirm Account Deletion'),
           content: Text(
-              '¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.'),
+              'Are you sure you want to delete your account? This action cannot be undone.'),
           actions: <Widget>[
             TextButton(
-              child: Text('Cancelar'),
+              child: Text('Cancel'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: Text('Eliminar'),
+              child: Text('Delete'),
               onPressed: () async {
                 try {
                   //Get the current user id
@@ -181,8 +180,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 } catch (e) {
                   print(e);
                   final snackBar = SnackBar(
-                    content:
-                        Text("Error al eliminar la cuenta: " + e.toString()),
+                    content: Text("Error deleting account: " + e.toString()),
                     backgroundColor: Colors.red,
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
