@@ -29,7 +29,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin' # O 'zulu', 'adopt', etc.
-          java-version: '17' # Asegúrate que es compatible con tu versión de Gradle/AGP
+          java-version: '21' # Asegúrate que es compatible con tu versión de Gradle/AGP
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
