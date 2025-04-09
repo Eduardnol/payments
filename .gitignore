@@ -38,6 +38,7 @@
 /build/
 *.json
 *.png
+!devcontainer.json
 
 # Web related
 
