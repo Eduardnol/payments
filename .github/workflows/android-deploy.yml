@@ -67,7 +67,11 @@ jobs:
           SIGNING_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
           SIGNING_STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           SIGNING_STORE_FILE: ${{ steps.decode_keystore.outputs.keyStorePath }} # Ruta al archivo decodificado
-
+      - name: Upload App Bundle to GitHub Packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-bundle
+          path: build/app/outputs/bundle/release/app-release.aab
       # --- Subida a Google Play Store ---
       - name: Upload to Google Play Store
         uses: r0adkll/upload-google-play@v1.1.1 # Usa una acción específica para Play Store
@@ -79,7 +83,6 @@ jobs:
           track: ${{ github.event.inputs.track }} # Canal obtenido del input manual
           whatsNewDirectory: whatsnew # Directorio opcional con archivos .txt por idioma (ej: whatsnew/es-ES.txt)
           # O usar directamente el texto del input:
-          whatsNew: ${{ github.event.inputs.releaseNotes }} # Novedades obtenidas del input manual
           status: completed # O 'draft' si quieres revisarlo antes en Play Console
 
       # --- Limpieza (Opcional pero recomendado) ---
