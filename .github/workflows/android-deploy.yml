@@ -67,6 +67,7 @@ jobs:
           SIGNING_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
           SIGNING_STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           SIGNING_STORE_FILE: ${{ steps.decode_keystore.outputs.keyStorePath }} # Ruta al archivo decodificado
+     # --- Subida a GitHub Packages ---
       - name: Upload App Bundle to GitHub Packages
         uses: actions/upload-artifact@v4
         with:
